@@ -5,7 +5,7 @@ const app = express();
 
 app.get("/", (request, response) => {
   console.log(request);
-  return response.status(234).send("Welcome to InsuranceService");
+  return response.status(234).send("Welcome to InsuranceService!");
 });
 
 app.listen(PORT, () => {
