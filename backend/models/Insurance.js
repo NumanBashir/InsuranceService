@@ -7,6 +7,4 @@ const insuranceSchema = new mongoose.Schema({
   },
 });
 
-const Insurance = mongoose.model("Insurance", insuranceSchema);
-
-export default Insurance;
+export const Insurance = mongoose.model("Insurance", insuranceSchema);
