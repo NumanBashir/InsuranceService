@@ -9,10 +9,6 @@ const serviceSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  purchased: {
-    type: Boolean,
-    required: true,
-  },
   price: {
     type: Number,
     required: true,
@@ -20,7 +16,7 @@ const serviceSchema = new mongoose.Schema({
   variations: [
     {
       type: String,
-      required: true,
+      required: false,
     },
   ],
   eligibleInsurances: [

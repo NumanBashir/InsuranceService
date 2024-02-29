@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import Insurance from "./Insurance";
-import Service from "./Service";
+import Order from "./Order"; // Import the Order model
 
+// We can use the User table to prefill the buying process
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     required: false,
   },
   insurances: [{ type: mongoose.Schema.Types.ObjectId, ref: "Insurance" }],
-  services: [Service.schema],
+  orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }], // Reference to orders made by the user
 });
 
 const User = mongoose.model("User", userSchema);
