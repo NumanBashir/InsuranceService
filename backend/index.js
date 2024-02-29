@@ -48,6 +48,7 @@ app.get("/insurances", async (req, res) => {
   }
 });
 
+// GET insurance by ID
 app.get("/insurances/:id", async (req, res) => {
   try {
     const { id } = req.params;

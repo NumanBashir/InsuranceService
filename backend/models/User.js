@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Order from "./Order"; // Import the Order model
+import Order from "./Order";
 
 // We can use the User table to prefill the buying process
 const userSchema = new mongoose.Schema({
@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     required: false,
   },
   insurances: [{ type: mongoose.Schema.Types.ObjectId, ref: "Insurance" }],
-  orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }], // Reference to orders made by the user
+  orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
 });
 
 const User = mongoose.model("User", userSchema);

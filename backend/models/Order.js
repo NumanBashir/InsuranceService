@@ -6,7 +6,7 @@ const orderSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  services: [{ type: mongoose.Schema.Types.ObjectId, ref: "Service" }], // Array of service IDs
+  services: [{ type: mongoose.Schema.Types.ObjectId, ref: "Service" }],
 });
 
 const Order = mongoose.model("Order", orderSchema);
