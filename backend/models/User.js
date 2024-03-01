@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import Order from "./Order";
 
 // We can use the User table to prefill the buying process
 const userSchema = new mongoose.Schema({
@@ -23,6 +22,4 @@ const userSchema = new mongoose.Schema({
   orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
 });
 
-const User = mongoose.model("User", userSchema);
-
-export default User;
+export const User = mongoose.model("User", userSchema);
