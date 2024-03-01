@@ -9,4 +9,6 @@ router.get("/", ordersController.getAllOrders);
 
 router.get("/:id", ordersController.getOrderById);
 
+router.delete("/:id", ordersController.deleteOrderById);
+
 export default router;

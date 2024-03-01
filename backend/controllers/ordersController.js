@@ -51,7 +51,7 @@ const ordersController = {
       });
     } catch (error) {
       console.log(error.message);
-      response.status(500).send({ message: error.message });
+      res.status(500).send({ message: error.message });
     }
   },
 
@@ -62,6 +62,24 @@ const ordersController = {
       const order = await Order.findById(id);
 
       return res.status(200).json(order);
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).send({ message: error.message });
+    }
+  },
+
+  // DELETE order by ID
+  deleteOrderById: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const result = await Order.findByIdAndDelete(id);
+
+      if (!result) {
+        return res.status(404).json({ message: "Order not found" });
+      }
+
+      return res.status(200).send({ message: "Order deleted successfully" });
     } catch (error) {
       console.log(error.message);
       res.status(500).send({ message: error.message });
