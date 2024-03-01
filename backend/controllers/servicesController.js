@@ -7,7 +7,7 @@ const serviceController = {
       if (
         !req.body.name ||
         !req.body.description ||
-        !req.body.price ||
+        !req.body.price || // TODO: Fix so it can be 0
         !req.body.variations ||
         !req.body.eligibleInsurances
       ) {
@@ -45,7 +45,7 @@ const serviceController = {
     }
   },
 
-  // GET insurance by ID
+  // GET service by ID
   getServiceById: async (req, res) => {
     try {
       const { id } = req.params;

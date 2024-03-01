@@ -1,14 +1,11 @@
 import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+  email: {
+    type: String,
     required: true,
   },
   services: [{ type: mongoose.Schema.Types.ObjectId, ref: "Service" }],
 });
 
-const Order = mongoose.model("Order", orderSchema);
-
-export default Order;
+export const Order = mongoose.model("Order", orderSchema);
