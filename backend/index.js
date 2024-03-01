@@ -3,6 +3,7 @@ import { PORT, mongoDBURL } from "./config.js ";
 import cors from "cors";
 import mongoose from "mongoose";
 import insurancesRoutes from "./routes/insurancesRoutes.js";
+import servicesRoutes from "./routes/servicesRoutes.js";
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.get("/", (request, response) => {
 });
 
 app.use("/insurances", insurancesRoutes);
+app.use("/services", servicesRoutes);
 
 mongoose
   .connect(mongoDBURL)
