@@ -97,7 +97,12 @@ const userController = {
       const { email } = req.params;
 
       // Find the user by email in the database
-      const user = await User.findOne({ email });
+      const user = await User.findOne({ email })
+        .populate({
+          path: "orders",
+          populate: { path: "services", select: "name" },
+        })
+        .populate("insurances", "name");
 
       if (!user) {
         return res.status(404).json({ message: "User not found" });
