@@ -100,22 +100,31 @@ const ordersController = {
   
 
   // DELETE order by ID
+
   deleteOrderById: async (req, res) => {
     try {
       const { id } = req.params;
 
-      const result = await Order.findByIdAndDelete(id);
+      // Delete the order and remove its reference from any User documents
+      const deletedOrder = await Order.findByIdAndDelete(id);
 
-      if (!result) {
+      if (!deletedOrder) {
         return res.status(404).json({ message: "Order not found" });
       }
 
-      return res.status(200).send({ message: "Order deleted successfully" });
+      // Now, remove the reference from the User document
+      await User.updateMany(
+        { orders: id },
+        { $pull: { orders: id } }
+      );
+
+      return res.status(200).json({ message: "Order deleted successfully" });
     } catch (error) {
-      console.log(error.message);
-      res.status(500).send({ message: error.message });
+      console.error("Error deleting order:", error);
+      res.status(500).json({ message: "Internal Server Error" });
     }
   },
+
 };
 
 export default ordersController;
