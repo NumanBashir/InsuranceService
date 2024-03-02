@@ -1,4 +1,5 @@
 import { User } from "../models/User.js";
+import { Insurance } from "../models/Insurance.js";
 
 const userController = {
   // POST new user
@@ -50,7 +51,12 @@ const userController = {
   // GET all users
   getAllUsers: async (req, res) => {
     try {
-      const users = await User.find({});
+      const users = await User.find({})
+        .populate({
+          path: "orders",
+          populate: { path: "services", select: "name" },
+        })
+        .populate("insurances", "name");
 
       return res.status(200).json({
         count: users.length,
@@ -67,42 +73,42 @@ const userController = {
     try {
       const { id } = req.params;
 
-      // Find the user by ID in the database
-      const user = await User.findById(id);
+      const user = await User.findById(id)
+        .populate({
+          path: "orders",
+          populate: { path: "services", select: "name" },
+        })
+        .populate("insurances", "name");
 
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
 
-      // If user is found, return it
       return res.status(200).json(user);
     } catch (error) {
-      // Handle any errors that occur during retrieval
       console.error("Error fetching user:", error);
       return res.status(500).json({ error: "Internal Server Error" });
     }
   },
 
   // GET user by Email
-getUserByEmail: async (req, res) => {
-  try {
-    const { email } = req.params; 
+  getUserByEmail: async (req, res) => {
+    try {
+      const { email } = req.params;
 
-    // Find the user by email in the database
-    const user = await User.findOne({ email });
+      // Find the user by email in the database
+      const user = await User.findOne({ email });
 
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      return res.status(200).json(user);
+    } catch (error) {
+      console.error("Error fetching user by email:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
     }
-
-    return res.status(200).json(user);
-  } catch (error) {
- 
-    console.error("Error fetching user by email:", error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-},
-
+  },
 };
 
 export default userController;
