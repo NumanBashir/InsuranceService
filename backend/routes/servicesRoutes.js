@@ -9,4 +9,6 @@ router.get("/", serviceController.getAllServices);
 
 router.get("/:id", serviceController.getServiceById);
 
+router.delete("/:id", serviceController.deleteServiceById);
+
 export default router;

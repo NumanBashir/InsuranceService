@@ -57,6 +57,25 @@ const serviceController = {
       res.status(500).send({ message: error.message });
     }
   },
+
+  // DELETE service by ID
+  deleteServiceById: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      // Delete the service and remove its reference from any User documents
+      const deletedService = await Service.findByIdAndDelete(id);
+
+      if (!deletedService) {
+        return res.status(404).json({ message: "Service not found" });
+      }
+
+      return res.status(200).json({ message: "Service deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting service:", error);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  },
 };
 
 export default serviceController;
