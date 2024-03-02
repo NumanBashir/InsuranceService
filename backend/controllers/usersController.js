@@ -114,6 +114,8 @@ const userController = {
       return res.status(500).json({ error: "Internal Server Error" });
     }
   },
+
+  // TODO: GET user(s) by name if contains in search query
 };
 
 export default userController;
