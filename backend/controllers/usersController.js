@@ -82,6 +82,27 @@ const userController = {
       return res.status(500).json({ error: "Internal Server Error" });
     }
   },
+
+  // GET user by Email
+getUserByEmail: async (req, res) => {
+  try {
+    const { email } = req.params; 
+
+    // Find the user by email in the database
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json(user);
+  } catch (error) {
+ 
+    console.error("Error fetching user by email:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+},
+
 };
 
 export default userController;

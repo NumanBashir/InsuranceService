@@ -9,4 +9,8 @@ router.get("/", usersController.getAllUsers);
 
 router.get("/:id", usersController.getUserById);
 
+router.get("/email/:email", usersController.getUserByEmail);
+
+
+
 export default router;
