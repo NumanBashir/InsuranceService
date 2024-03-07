@@ -7,7 +7,8 @@ const serviceController = {
       if (
         !req.body.name ||
         !req.body.description ||
-        !req.body.price || // TODO: Fix so it can be 0
+        req.body.price === undefined || 
+        req.body.price === null || 
         !req.body.variations ||
         !req.body.eligibleInsurances
       ) {
