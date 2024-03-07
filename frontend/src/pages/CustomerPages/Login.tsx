@@ -1,9 +1,12 @@
 import Spinner from "../../components/Spinner";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
     <div>
-      <Spinner />
+      <Link to="/home">
+        <button>Go to home</button>
+      </Link>
     </div>
   );
 };
