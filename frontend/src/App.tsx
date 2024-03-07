@@ -7,11 +7,13 @@ import ShoppingCart from "./pages/CustomerPages/ShoppingCart";
 import Checkout from "./pages/CustomerPages/Checkout";
 import Confirmation from "./pages/CustomerPages/Confirmation";
 import Header from "./components/Header";
+import BlueRect from "./components/BlueRect";
 
 const App = () => {
   return (
     <>
       <Header />
+      <BlueRect />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<CustomerHome />} />
