@@ -1,7 +1,11 @@
-import React from "react";
+import Spinner from "../../components/Spinner";
 
 const Login = () => {
-  return <div>Login</div>;
+  return (
+    <div>
+      <Spinner />
+    </div>
+  );
 };
 
 export default Login;
