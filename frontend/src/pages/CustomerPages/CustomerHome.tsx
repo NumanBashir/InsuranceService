@@ -1,11 +1,12 @@
 // CustomerHome.tsx
-import { useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import ServiceCard from "../../components/ServiceCard";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Spinner from "../../components/Spinner";
 
 interface Service {
+  _id: string;
   name: string;
   description: string;
 }
@@ -14,9 +15,10 @@ const CustomerHome = () => {
   const state = location.state as { name: string };
   const [serviceName, setServiceName] = useState<Service[]>([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handlePurchase = () => {
-    console.log("Purchase clicked");
+  const handlePurchase = (serviceId: string) => {
+    navigate(`/product/${serviceId}`);
   };
 
   useEffect(() => {
@@ -54,8 +56,7 @@ const CustomerHome = () => {
                 key={index}
                 title={service.name}
                 description={service.description}
-                buttonText="KØB NU"
-                onButtonClick={handlePurchase}
+                onButtonClick={() => handlePurchase(service._id)}
               />
             ))}
           </div>
