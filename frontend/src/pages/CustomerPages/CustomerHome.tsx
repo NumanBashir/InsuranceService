@@ -39,7 +39,7 @@ const CustomerHome = () => {
     <div>
       <div className="absolute top-2 left-0 right-0 h-72 flex justify-center items-center">
         <span className="font-bold text-white text-3xl">
-          Velkommen til Insurance service, {state.name}
+          Velkommen til InsuranceService, {state.name}
         </span>
       </div>
       {loading ? (
