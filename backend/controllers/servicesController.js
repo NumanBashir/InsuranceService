@@ -59,33 +59,39 @@ const serviceController = {
       const userInsuranceIds = user.insurances.map(ins => ins._id.toString());
   
       let services = await Service.find({});
-  
+
       let serviceMap = new Map();
-  
+
       services.forEach(service => {
-        const isUserEligibleForService = service.eligibleInsurances.some(id => userInsuranceIds.includes(id.toString()));
+        // Check if the user has all the insurances required by the service
+        const isUserEligibleForService = service.eligibleInsurances.every(id => 
+          userInsuranceIds.includes(id.toString())
+        );
         
         let existingService = serviceMap.get(service.name);
-  
+
         if (isUserEligibleForService) {
+          // Prioritize free services or services not already in the map, or paid services when a free one isn't available
           if (service.price === 0 || !existingService || (existingService && existingService.price > 0)) {
             serviceMap.set(service.name, service);
           }
         } else if (!existingService && service.eligibleInsurances.length === 0) {
+          // Include the service if it requires no specific insurances and it's not already included
           serviceMap.set(service.name, service);
         }
       });
-  
+
       const servicesToShow = Array.from(serviceMap.values());
-  
+
       servicesToShow.sort((a, b) => a.name.localeCompare(b.name));
-  
+
       res.json(servicesToShow);
     } catch (error) {
       console.error('Error fetching services for user:', error);
       res.status(500).json({ message: 'Internal Server Error' });
     }
   },
+
   
   // GET service by ID
   getServiceById: async (req, res) => {
