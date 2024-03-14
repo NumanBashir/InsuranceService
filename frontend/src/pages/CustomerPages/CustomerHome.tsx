@@ -35,20 +35,23 @@ const CustomerHome = () => {
   }, []);
 
   return (
-    <div>
-      <div className="absolute top-2 left-0 right-0 h-72 flex justify-center items-center">
+    <div className="pt-24">
+      <div className="absolute top-36 left-0 right-0 flex justify-center items-center">
         <span className="font-bold text-white text-3xl">
           Velkommen til InsuranceService, {state.name}
         </span>
       </div>
+      <div className="absolute top-60 left-0 right-0 flex justify-center items-center">
+        <img src="/fotowithman.png" className="w-[700px]" />
+      </div>
       {loading ? (
         <Spinner />
       ) : (
-        <div className="flex flex-col justify-center items-center my-8">
+        <div className="flex flex-col justify-center items-center my-16">
           <h1 className="text-4xl font-bold text-black text-center">
             Se hvilke servicer du er berettiget til og kan købe!
           </h1>
-          <hr className="border border-gray-300 w-full max-w-4xl my-8" />
+          <hr className="border border-gray-300 w-full max-w-4xl my-16" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-4 w-full max-w-4xl">
             {serviceName.map((service, index) => (
               <ServiceCard
