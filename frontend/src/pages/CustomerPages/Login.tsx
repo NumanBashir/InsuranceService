@@ -2,6 +2,7 @@ import axios from "axios";
 import NameCard from "../../components/NameCard";
 import React, { useState, useEffect } from "react";
 import Spinner from "../../components/Spinner";
+import AdminNameCard from "../../components/AdminNameCard";
 
 const Login = () => {
   const [userNames, setUserNames] = useState([]);
@@ -39,7 +40,7 @@ const Login = () => {
             </div>
             <div className="flex flex-col items-center">
               <span className="text-xl font-semibold">Admin Login:</span>
-              <NameCard name="Allan Admin" />
+              <AdminNameCard name="Allan Admin" />
               {/* This will be changed to AdminCard Login */}
             </div>
           </div>

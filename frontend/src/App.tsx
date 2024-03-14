@@ -8,6 +8,7 @@ import ProductDetails from "./pages/CustomerPages/ProductDetails";
 import ShoppingCart from "./pages/CustomerPages/ShoppingCart";
 import Checkout from "./pages/CustomerPages/Checkout";
 import Confirmation from "./pages/CustomerPages/Confirmation";
+import AdminHome from "./pages/AdminPages/AdminHome";
 
 const App = () => {
   return (
@@ -25,6 +26,14 @@ const App = () => {
         element={
           <Layout>
             <CustomerHome />
+          </Layout>
+        }
+      />
+      <Route
+        path="/admin"
+        element={
+          <Layout>
+            <AdminHome />
           </Layout>
         }
       />
