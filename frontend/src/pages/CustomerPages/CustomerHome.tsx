@@ -17,8 +17,9 @@ const CustomerHome = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handlePurchase = (serviceId: string) => {
-    navigate(`/product/${serviceId}`);
+  const handlePurchase = (serviceId: string, serviceName: string) => {
+    const encodedServiceName = encodeURIComponent(serviceName);
+    navigate(`/product/${serviceId}?name=${encodedServiceName}`);
   };
 
   useEffect(() => {
@@ -59,7 +60,7 @@ const CustomerHome = () => {
                 key={index}
                 title={service.name}
                 description={service.description}
-                onButtonClick={() => handlePurchase(service._id)}
+                onButtonClick={() => handlePurchase(service._id, service.name)}
               />
             ))}
           </div>
