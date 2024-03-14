@@ -41,7 +41,6 @@ const Login = () => {
             <div className="flex flex-col items-center">
               <span className="text-xl font-semibold">Admin Login:</span>
               <AdminNameCard name="Allan Admin" />
-              {/* This will be changed to AdminCard Login */}
             </div>
           </div>
         </div>

@@ -1,4 +1,3 @@
-// CustomerHome.tsx
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import ServiceCard from "../../components/ServiceCard";
 import { useEffect, useState } from "react";
