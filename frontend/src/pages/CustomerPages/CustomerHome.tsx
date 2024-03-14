@@ -36,8 +36,8 @@ const CustomerHome = () => {
   }, []);
 
   return (
-    <div>
-      <div className="absolute top-2 left-0 right-0 h-72 flex justify-center items-center">
+    <div className="pt-24">
+      <div className="absolute top-36 left-0 right-0 flex justify-center items-center">
         <span className="font-bold text-white text-3xl">
           Velkommen til InsuranceService, {state.name}
         </span>
