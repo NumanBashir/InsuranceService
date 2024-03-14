@@ -11,4 +11,6 @@ router.get("/:id", serviceController.getServiceById);
 
 router.delete("/:id", serviceController.deleteServiceById);
 
+router.get('/userEligibleServices/:userId', serviceController.getUserSpecificService);
+
 export default router;

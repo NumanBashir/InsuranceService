@@ -1,4 +1,5 @@
 import { Service } from "../models/Service.js";
+import { User}  from '../models/User.js';
 
 const serviceController = {
   // POST new service
@@ -46,6 +47,46 @@ const serviceController = {
     }
   },
 
+  // display the services based on what is eligble for users
+  getUserSpecificService: async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const user = await User.findById(userId).populate('insurances');
+      if (!user) {
+          return res.status(404).json({ message: 'User not found' });
+      }
+  
+      const userInsuranceIds = user.insurances.map(ins => ins._id.toString());
+  
+      let services = await Service.find({});
+  
+      let serviceMap = new Map();
+  
+      services.forEach(service => {
+        const isUserEligibleForService = service.eligibleInsurances.some(id => userInsuranceIds.includes(id.toString()));
+        
+        let existingService = serviceMap.get(service.name);
+  
+        if (isUserEligibleForService) {
+          if (service.price === 0 || !existingService || (existingService && existingService.price > 0)) {
+            serviceMap.set(service.name, service);
+          }
+        } else if (!existingService && service.eligibleInsurances.length === 0) {
+          serviceMap.set(service.name, service);
+        }
+      });
+  
+      const servicesToShow = Array.from(serviceMap.values());
+  
+      servicesToShow.sort((a, b) => a.name.localeCompare(b.name));
+  
+      res.json(servicesToShow);
+    } catch (error) {
+      console.error('Error fetching services for user:', error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  },
+  
   // GET service by ID
   getServiceById: async (req, res) => {
     try {
