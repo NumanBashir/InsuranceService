@@ -120,7 +120,21 @@ const userController = {
     }
   },
 
-  // TODO: GET user(s) by name if contains in search query
+  searchUsersByName: async (req, res) => {
+    try {
+      const { query } = req.query;
+
+      const users = await User.find({
+        $or: [{ name: { $regex: query, $options: "i" } }],
+        $or: [{ email: { $regex: query, $options: "i" } }],
+      });
+
+      return res.status(200).json(users);
+    } catch (error) {
+      console.error("Error searching for users:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
 };
 
 export default userController;
