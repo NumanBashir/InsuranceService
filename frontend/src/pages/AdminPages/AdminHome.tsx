@@ -5,10 +5,6 @@ import { HiMagnifyingGlass } from "react-icons/hi2";
 import axios from "axios";
 import CustomerInfoCard from "../../components/CustomerInfoCard";
 
-interface Service {
-  name: string;
-}
-
 interface User {
   _id: string;
   name: string;
@@ -19,7 +15,6 @@ interface User {
 const AdminHome = () => {
   const location = useLocation();
   const state = location.state as { name: string };
-  const [serviceName, setServiceName] = useState<Service[]>([]);
   const [searchResults, setSearchResults] = useState<User[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -74,9 +69,11 @@ const AdminHome = () => {
             </button>
           </div>
         </form>
-        <span className="font-bold text-black text-2xl flex justify-center my-10">
-          Vælg hvilken kunde du ønsker at se
-        </span>
+        {searchResults.length > 0 && (
+          <h1 className="font-bold text-black text-2xl flex justify-center my-10">
+            Vælg hvilken kunde du ønsker at se
+          </h1>
+        )}
         <div>
           {searchResults.map((user) => (
             <CustomerInfoCard
