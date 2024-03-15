@@ -17,9 +17,11 @@ const AdminHome = () => {
   const state = location.state as { name: string };
   const [searchResults, setSearchResults] = useState<User[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchAttempted, setSearchAttempted] = useState(false);
 
   const handleSearch = async (e: any) => {
     e.preventDefault();
+    setSearchAttempted(true);
     try {
       const response = await axios.get(
         `http://localhost:3000/users/search?query=${searchQuery}`
@@ -75,15 +77,22 @@ const AdminHome = () => {
           </h1>
         )}
         <div>
-          {searchResults.map((user) => (
-            <CustomerInfoCard
-              key={user._id}
-              name={user.name}
-              address={user.address || "Adresse ikke tilgængelig"}
-              email={user.email || "Email ikke tilgængelig"}
-              // onButtonClick={() => {/* handle the button click event */}}
-            />
-          ))}
+          {searchAttempted && searchResults.length > 0 ? (
+            searchResults.map((user) => (
+              <CustomerInfoCard
+                key={user._id}
+                name={user.name}
+                address={user.address || "Adresse ikke tilgængelig"}
+                email={user.email || "Email ikke tilgængelig"}
+              />
+            ))
+          ) : searchAttempted && searchResults.length === 0 ? (
+            <div className="text-center my-10">
+              <span className="text-2xl font-semibold">
+                Ingen kunde(r) fundet
+              </span>
+            </div>
+          ) : null}
         </div>
       </div>
     </>
