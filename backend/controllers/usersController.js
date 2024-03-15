@@ -135,6 +135,55 @@ const userController = {
       return res.status(500).json({ error: "Internal Server Error" });
     }
   },
+
+  // GET services by user ID
+  getServicesByUserId: async (req, res) => {
+    try {
+      const { userId } = req.params;
+
+      // Find the user by ID in the database
+      const user = await User.findById(userId).populate({
+        path: "orders",
+        populate: { path: "services", select: "name" },
+      });
+
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      // Map over the user's orders to get all services
+      const services = user.orders.flatMap((order) =>
+        order.services.map((service) => service.name)
+      );
+
+      return res.status(200).json(services);
+    } catch (error) {
+      console.error("Error fetching services by user ID:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
+
+  // GET insurances by user ID
+  getInsurancesByUserId: async (req, res) => {
+    try {
+      const { userId } = req.params;
+
+      // Find the user by ID in the database
+      const user = await User.findById(userId).populate("insurances", "name"); // Only populate the name field from insurances
+
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      // Extract the names of the insurances
+      const insuranceNames = user.insurances.map((insurance) => insurance.name);
+
+      return res.status(200).json(insuranceNames);
+    } catch (error) {
+      console.error("Error fetching insurances by user ID:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
 };
 
 export default userController;

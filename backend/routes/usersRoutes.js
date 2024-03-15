@@ -13,4 +13,8 @@ router.get("/:id", usersController.getUserById);
 
 router.get("/email/:email", usersController.getUserByEmail);
 
+router.get("/:userId/services", usersController.getServicesByUserId);
+
+router.get("/:userId/insurances", usersController.getInsurancesByUserId);
+
 export default router;
