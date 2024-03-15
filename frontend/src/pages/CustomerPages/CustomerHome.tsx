@@ -50,7 +50,7 @@ const CustomerHome = () => {
         </span>
       </div>
       <div className="absolute top-60 left-0 right-0 flex justify-center items-center">
-        <img src="/fotowithman.png" className="w-[700px]" />
+        <img src="/TopService.png" className="w-[700px]" />
       </div>
       {loading ? (
         <Spinner />
