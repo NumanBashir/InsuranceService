@@ -33,7 +33,7 @@ const Login = () => {
       {loading ? (
         <Spinner />
       ) : (
-        <div className="flex justify-center items-center">
+        <div className="absolute top-40 left-0 right-96 flex justify-center ">
           <div className="bg-white shadow-lg rounded-2xl py-8 m-4 w-1/2 max-w-2xl">
             <div className="flex flex-col items-center mb-4">
               <span className="text-xl font-semibold">Customer Login:</span>
