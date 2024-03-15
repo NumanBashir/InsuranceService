@@ -5,24 +5,34 @@ const userController = {
   // POST new user
   createUser: async (req, res) => {
     try {
-      if (!req.body.name || !req.body.email) {
-        return res
-          .status(400)
-          .send({ message: "Name and email field are required" });
-      }
-
       const { name, email, number, address, insurances } = req.body;
-
+  
+      if (!name || !email) {
+        return res.status(400).send({ message: "Name and email fields are required." });
+      }
+  
+      // Validate insurance IDs
+      const insuranceIdsAreValid = await Promise.all(
+        insurances.map(async (id) => {
+          const insurance = await Insurance.findById(id);
+          return insurance !== null;
+        })
+      );
+  
+      if (insuranceIdsAreValid.includes(false)) {
+        return res.status(400).send({ message: "One or more insurance IDs are invalid." });
+      }
+  
       // Check if a user with the provided email already exists
       let existingUser = await User.findOne({ email });
-
+  
       if (existingUser) {
         // If the user already exists, update their information
         existingUser.name = name;
         existingUser.number = number;
         existingUser.address = address;
         existingUser.insurances = insurances;
-
+  
         // Save the updated user to the database
         const updatedUser = await existingUser.save();
         return res.status(200).json(updatedUser);
@@ -31,23 +41,22 @@ const userController = {
         const newUser = new User({
           name,
           email,
-          number, // TODO: Validate this by 8-digits
+          number,
           address,
-          orders: [], // Initialize orders array as empty
           insurances,
+          orders: [], // Assuming you want to initialize the orders as an empty array
         });
-
+  
         // Save the new user to the database
         const savedUser = await newUser.save();
         return res.status(201).json(savedUser);
       }
     } catch (error) {
-      // Handle any errors that occur during user creation or update
       console.error("Error creating or updating user:", error);
       return res.status(500).json({ error: "Internal Server Error" });
     }
   },
-
+  
   // GET all users
   getAllUsers: async (req, res) => {
     try {

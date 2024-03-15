@@ -3,13 +3,14 @@ import { useNavigate } from "react-router-dom";
 
 interface Props {
   name: string;
+  userId?: string;
 }
 
-const NameCard: React.FC<Props> = ({ name }) => {
+const NameCard: React.FC<Props> = ({ name, userId }) => {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate("/home", { state: { name } });
+    navigate("/home", { state: { name, userId } });
   };
 
   return (
