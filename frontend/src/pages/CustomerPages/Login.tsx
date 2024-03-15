@@ -1,11 +1,17 @@
+// Login.tsx
 import axios from "axios";
 import NameCard from "../../components/NameCard";
 import React, { useState, useEffect } from "react";
 import Spinner from "../../components/Spinner";
 import AdminNameCard from "../../components/AdminNameCard";
 
+type User = {
+  _id: string;
+  name: string;
+};
+
 const Login = () => {
-  const [userNames, setUserNames] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -13,10 +19,7 @@ const Login = () => {
     axios
       .get("http://localhost:3000/users")
       .then((response) => {
-        const names = response.data.data.map(
-          (user: { name: any }) => user.name
-        );
-        setUserNames(names);
+        setUsers(response.data.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -34,8 +37,8 @@ const Login = () => {
           <div className="bg-white shadow-lg rounded-2xl py-8 m-4 w-1/2 max-w-2xl">
             <div className="flex flex-col items-center mb-4">
               <span className="text-xl font-semibold">Customer Login:</span>
-              {userNames.map((name, index) => (
-                <NameCard key={index} name={name} />
+              {users.map((user) => (
+                <NameCard key={user._id} name={user.name} userId={user._id} />
               ))}
             </div>
             <div className="flex flex-col items-center">

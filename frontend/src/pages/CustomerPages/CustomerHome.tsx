@@ -8,31 +8,38 @@ interface Service {
   _id: string;
   name: string;
   description: string;
+  price: number;
 }
+
 const CustomerHome = () => {
   const location = useLocation();
-  const state = location.state as { name: string };
-  const [serviceName, setServiceName] = useState<Service[]>([]);
+  const state = location.state as { name: string; userId: string }; // Now we expect a userId to be passed as well
+  const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handlePurchase = (serviceId: string) => {
-    navigate(`/product/${serviceId}`);
+  const handlePurchase = (serviceId: string, serviceName: string) => {
+    const encodedServiceName = encodeURIComponent(serviceName);
+    navigate(`/product/${serviceId}?name=${encodedServiceName}`);
   };
 
   useEffect(() => {
-    setLoading(true);
-    axios
-      .get("http://localhost:3000/services")
-      .then((response) => {
-        setServiceName(response.data.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching users:", error);
-        setLoading(false);
-      });
-  }, []);
+    if (state?.userId) {
+      setLoading(true);
+      axios
+        .get(
+          `http://localhost:3000/services/getUserSpecificService/${state.userId}`
+        )
+        .then((response) => {
+          setServices(response.data);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("Error fetching services for user:", error);
+          setLoading(false);
+        });
+    }
+  }, [state?.userId, navigate]); // Add navigate to the dependency array
 
   return (
     <div className="pt-24">
@@ -53,14 +60,20 @@ const CustomerHome = () => {
           </h1>
           <hr className="border border-gray-300 w-full max-w-4xl my-16" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-4 w-full max-w-4xl">
-            {serviceName.map((service, index) => (
-              <ServiceCard
-                key={index}
-                title={service.name}
-                description={service.description}
-                onButtonClick={() => handlePurchase(service._id)}
-              />
-            ))}
+            {services.length > 0 ? (
+              services.map((service) => (
+                <ServiceCard
+                  key={service._id}
+                  title={service.name}
+                  description={service.description}
+                  onButtonClick={() =>
+                    handlePurchase(service._id, service.name)
+                  }
+                />
+              ))
+            ) : (
+              <p>No available services to display.</p>
+            )}
           </div>
         </div>
       )}
