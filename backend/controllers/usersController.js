@@ -6,11 +6,13 @@ const userController = {
   createUser: async (req, res) => {
     try {
       const { name, email, number, address, insurances } = req.body;
-  
+
       if (!name || !email) {
-        return res.status(400).send({ message: "Name and email fields are required." });
+        return res
+          .status(400)
+          .send({ message: "Name and email fields are required." });
       }
-  
+
       // Validate insurance IDs
       const insuranceIdsAreValid = await Promise.all(
         insurances.map(async (id) => {
@@ -18,45 +20,39 @@ const userController = {
           return insurance !== null;
         })
       );
-  
+
       if (insuranceIdsAreValid.includes(false)) {
-        return res.status(400).send({ message: "One or more insurance IDs are invalid." });
+        return res
+          .status(400)
+          .send({ message: "One or more insurance IDs are invalid." });
       }
-  
+
       // Check if a user with the provided email already exists
       let existingUser = await User.findOne({ email });
-  
+
       if (existingUser) {
-        // If the user already exists, update their information
-        existingUser.name = name;
-        existingUser.number = number;
-        existingUser.address = address;
-        existingUser.insurances = insurances;
-  
-        // Save the updated user to the database
-        const updatedUser = await existingUser.save();
-        return res.status(200).json(updatedUser);
-      } else {
-        // If the user does not exist, create a new user
-        const newUser = new User({
-          name,
-          email,
-          number,
-          address,
-          insurances,
-          orders: [], // Assuming you want to initialize the orders as an empty array
-        });
-  
-        // Save the new user to the database
-        const savedUser = await newUser.save();
-        return res.status(201).json(savedUser);
+        return res
+          .status(409)
+          .json({ message: "A user with this email already exists." });
       }
+
+      const newUser = new User({
+        name,
+        email,
+        number,
+        address,
+        insurances,
+        orders: [],
+      });
+
+      const savedUser = await newUser.save();
+      return res.status(201).json(savedUser);
     } catch (error) {
       console.error("Error creating or updating user:", error);
       return res.status(500).json({ error: "Internal Server Error" });
     }
   },
-  
+
   // GET all users
   getAllUsers: async (req, res) => {
     try {
