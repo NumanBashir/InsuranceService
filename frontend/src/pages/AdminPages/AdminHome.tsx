@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import axios from "axios";
 import CustomerInfoCard from "../../components/CustomerInfoCard";
+import Spinner from "../../components/Spinner";
 
 interface User {
   _id: string;
@@ -18,18 +19,22 @@ const AdminHome = () => {
   const [searchResults, setSearchResults] = useState<User[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchAttempted, setSearchAttempted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSearch = async (e: any) => {
     e.preventDefault();
+    setLoading(true);
     setSearchAttempted(true);
     try {
       const response = await axios.get(
         `http://localhost:3000/users/search?query=${searchQuery}`
       );
 
-      setSearchResults(response.data); // Assuming the response is the array of users
+      setSearchResults(response.data);
     } catch (error) {
       console.error("Error fetching search results:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -77,21 +82,25 @@ const AdminHome = () => {
           </h1>
         )}
         <div>
-          {searchAttempted && searchResults.length > 0 ? (
-            searchResults.map((user) => (
-              <CustomerInfoCard
-                key={user._id}
-                name={user.name}
-                address={user.address || "Adresse ikke tilgængelig"}
-                email={user.email || "Email ikke tilgængelig"}
-              />
-            ))
-          ) : searchAttempted && searchResults.length === 0 ? (
-            <div className="text-center my-10">
-              <span className="text-2xl font-semibold">
-                Ingen kunde(r) fundet
-              </span>
-            </div>
+          {loading ? (
+            <Spinner />
+          ) : searchAttempted ? (
+            searchResults.length > 0 ? (
+              searchResults.map((user) => (
+                <CustomerInfoCard
+                  key={user._id}
+                  name={user.name}
+                  address={user.address || "Adresse ikke tilgængelig"}
+                  email={user.email || "Email ikke tilgængelig"}
+                />
+              ))
+            ) : (
+              <div className="text-center my-10">
+                <span className="text-2xl font-semibold">
+                  Ingen kunde(r) fundet
+                </span>
+              </div>
+            )
           ) : null}
         </div>
       </div>

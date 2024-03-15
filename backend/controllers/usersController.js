@@ -126,7 +126,7 @@ const userController = {
 
       const users = await User.find({
         $or: [{ name: { $regex: query, $options: "i" } }],
-        $or: [{ email: { $regex: query, $options: "i" } }],
+        // $or: [{ email: { $regex: query, $options: "i" } }],
       });
 
       return res.status(200).json(users);
