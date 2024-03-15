@@ -20,7 +20,7 @@ const ServiceCard: React.FC<CardProps> = ({
         <div>
           <div className="flex justify-between items-start mb-2">
             <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
-            <p className="text-gray-700 font-semibold">{`${price}KR`}</p>
+            <p className="text-gray-700 font-semibold">{`${price}kr`}</p>
           </div>
           <p className="text-gray-700 my-4">{description}</p>
         </div>
