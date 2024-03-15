@@ -31,23 +31,20 @@ const userController = {
       let existingUser = await User.findOne({ email });
 
       if (existingUser) {
-        // If the user already exists, return an error
         return res
           .status(409)
           .json({ message: "A user with this email already exists." });
       }
 
-      // If the user does not exist, create a new user
       const newUser = new User({
         name,
         email,
         number,
         address,
         insurances,
-        orders: [], // Assuming you want to initialize the orders as an empty array
+        orders: [],
       });
 
-      // Save the new user to the database
       const savedUser = await newUser.save();
       return res.status(201).json(savedUser);
     } catch (error) {
