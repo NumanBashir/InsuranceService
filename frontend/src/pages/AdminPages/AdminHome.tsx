@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import axios from "axios";
+import CustomerInfoCard from "../../components/CustomerInfoCard";
 
 interface Service {
   name: string;
@@ -73,6 +74,7 @@ const AdminHome = () => {
             </button>
           </div>
         </form>
+        <CustomerInfoCard />
         <div className="flex justify-center items-center">
           <div className="bg-white shadow-lg rounded-2xl py-8 m-4 w-1/2 max-w-2xl">
             {searchResults.length > 0 ? (
