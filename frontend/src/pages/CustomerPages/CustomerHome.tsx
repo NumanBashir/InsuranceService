@@ -66,6 +66,7 @@ const CustomerHome = () => {
                 <ServiceCard
                   key={service._id}
                   title={service.name}
+                  price={service.price}
                   description={service.description}
                   onButtonClick={() =>
                     handlePurchase(service._id, service.name)
