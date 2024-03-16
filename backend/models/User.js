@@ -20,6 +20,7 @@ const userSchema = new mongoose.Schema({
   },
   insurances: [{ type: mongoose.Schema.Types.ObjectId, ref: "Insurance" }],
   orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
+  services: [{ type: mongoose.Schema.Types.ObjectId, ref: "Service" }],
 });
 
 export const User = mongoose.model("User", userSchema);

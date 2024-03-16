@@ -5,7 +5,7 @@ const userController = {
   // POST new user
   createUser: async (req, res) => {
     try {
-      const { name, email, number, address, insurances } = req.body;
+      const { name, email, number, address, insurances, services } = req.body;
 
       if (!name || !email) {
         return res
@@ -13,7 +13,7 @@ const userController = {
           .send({ message: "Name and email fields are required." });
       }
 
-      // Validate insurance IDs
+      // Validate insurance IDs (No changes here)
       const insuranceIdsAreValid = await Promise.all(
         insurances.map(async (id) => {
           const insurance = await Insurance.findById(id);
@@ -36,12 +36,14 @@ const userController = {
           .json({ message: "A user with this email already exists." });
       }
 
+      // Now include services in the new user creation
       const newUser = new User({
         name,
         email,
         number,
         address,
         insurances,
+        services, // Add this line
         orders: [],
       });
 
@@ -61,7 +63,8 @@ const userController = {
           path: "orders",
           populate: { path: "services", select: "name" },
         })
-        .populate("insurances", "name");
+        .populate("insurances", "name")
+        .populate("services", "name");
 
       return res.status(200).json({
         count: users.length,
@@ -83,7 +86,8 @@ const userController = {
           path: "orders",
           populate: { path: "services", select: "name" },
         })
-        .populate("insurances", "name");
+        .populate("insurances", "name")
+        .populate("services", "name");
 
       if (!user) {
         return res.status(404).json({ message: "User not found" });
@@ -107,7 +111,8 @@ const userController = {
           path: "orders",
           populate: { path: "services", select: "name" },
         })
-        .populate("insurances", "name");
+        .populate("insurances", "name")
+        .populate("services", "name");
 
       if (!user) {
         return res.status(404).json({ message: "User not found" });
@@ -142,21 +147,16 @@ const userController = {
       const { userId } = req.params;
 
       // Find the user by ID in the database
-      const user = await User.findById(userId).populate({
-        path: "orders",
-        populate: { path: "services", select: "name" },
-      });
+      const user = await User.findById(userId).populate("services", "name");
 
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
 
-      // Map over the user's orders to get all services
-      const services = user.orders.flatMap((order) =>
-        order.services.map((service) => service.name)
-      );
+      // Extract the names of the services
+      const serviceNames = user.services.map((service) => service.name);
 
-      return res.status(200).json(services);
+      return res.status(200).json(serviceNames);
     } catch (error) {
       console.error("Error fetching services by user ID:", error);
       return res.status(500).json({ error: "Internal Server Error" });
