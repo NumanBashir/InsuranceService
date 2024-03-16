@@ -17,4 +17,9 @@ router.get("/:userId/services", usersController.getServicesByUserId);
 
 router.get("/:userId/insurances", usersController.getInsurancesByUserId);
 
+router.delete(
+  "/:userId/services/:serviceId",
+  usersController.deleteServiceFromUser
+);
+
 export default router;

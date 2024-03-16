@@ -184,6 +184,39 @@ const userController = {
       return res.status(500).json({ error: "Internal Server Error" });
     }
   },
+
+  deleteServiceFromUser: async (req, res) => {
+    try {
+      const { userId, serviceId } = req.params;
+
+      // Find the user and remove the service ID from their services array
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      // Check if the service is actually in the user's services list
+      if (!user.services.includes(serviceId)) {
+        return res
+          .status(404)
+          .json({ message: "Service not found in user's services list" });
+      }
+
+      // Remove the service from the user's services list
+      user.services = user.services.filter(
+        (sId) => sId.toString() !== serviceId
+      );
+      await user.save();
+
+      return res.status(200).json({
+        message: "Service removed from user successfully",
+        services: user.services.name, // Optionally return the updated list of services
+      });
+    } catch (error) {
+      console.error("Error removing service from user:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
 };
 
 export default userController;
