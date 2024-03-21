@@ -15,7 +15,11 @@ interface User {
 
 const AdminHome = () => {
   const location = useLocation();
-  const state = location.state as { name: string };
+  const state = location.state as {
+    name: string;
+    email: string;
+    address: string;
+  };
   const [searchResults, setSearchResults] = useState<User[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchAttempted, setSearchAttempted] = useState(false);

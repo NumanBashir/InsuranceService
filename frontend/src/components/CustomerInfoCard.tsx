@@ -5,7 +5,7 @@ interface Props {
   name: string;
   address: string;
   email: string;
-  userId: string;
+  userId?: string;
 }
 
 const CustomerInfoCard: React.FC<Props> = ({
@@ -16,7 +16,7 @@ const CustomerInfoCard: React.FC<Props> = ({
 }) => {
   const navigate = useNavigate();
   const handleNavigate = () => {
-    navigate(`/customer/${userId}`, { state: { name } });
+    navigate(`/customer/${userId}`, { state: { name, email, address } });
   };
   return (
     <div className="flex justify-center items-center my-6">

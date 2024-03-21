@@ -7,14 +7,22 @@ interface User {
   _id?: string;
   name?: string;
   description?: string;
+  email?: string;
+  address?: string;
 }
 
-const CustomerDetails = () => {
+const CustomerDetails: React.FC<User> = ({}) => {
   const [user, setUser] = useState<User>({});
   const [loading, setLoading] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const state = location.state as { name: string; userId: string };
+  const state = location.state as {
+    email: string;
+    name: string;
+    userId: string;
+    address: string;
+  };
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -39,8 +47,14 @@ const CustomerDetails = () => {
         <Spinner />
       ) : (
         <div>
-          <h1>HEJ {state.name}</h1>
-          <h1>{user.name}</h1>
+          <div className="absolute top-36 left-0 right-0 flex justify-center items-center">
+            <span className="font-bold text-white text-3xl">
+              Her kan du se informationer om {state.name}
+            </span>
+          </div>
+          <p>Navn: {state.name}</p>
+          <p>Email: {state.email}</p>
+          <p>Adresse: {state.address}</p>
         </div>
       )}
     </>
