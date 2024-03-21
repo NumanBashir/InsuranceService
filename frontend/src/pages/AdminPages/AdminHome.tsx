@@ -92,6 +92,7 @@ const AdminHome = () => {
                   name={user.name}
                   address={user.address || "Adresse ikke tilgængelig"}
                   email={user.email || "Email ikke tilgængelig"}
+                  userId={user._id}
                 />
               ))
             ) : (

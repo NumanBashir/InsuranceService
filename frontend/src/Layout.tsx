@@ -1,4 +1,3 @@
-// Layout.tsx
 import React from "react";
 import Header from "./components/Header";
 import BlueRect from "./components/BlueRect";
