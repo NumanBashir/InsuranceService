@@ -48,22 +48,22 @@ const CustomerDetails: React.FC<User> = ({}) => {
     }
   }, [state?.userId, navigate]);
 
+  // useParam to get proper id
   useEffect(() => {
-    if (state?.userId) {
-      setLoading(true);
-      axios
-        .get(`http://localhost:3000/users/${state.userId}/services`)
-        .then((response) => {
-          setServices(response.data); // Directly setting the array of strings
-        })
-        .catch((error) => {
-          console.error("Error fetching services: ", error);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }
-  }, [state?.userId]);
+    setLoading(true);
+    axios
+      .get(`http://localhost:3000/users/${id}/services`)
+      .then((response) => {
+        console.log("Services response:", response.data);
+        setServices(response.data); // Directly setting the array of services
+      })
+      .catch((error) => {
+        console.error("Error fetching services: ", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [id]);
 
   function printHello(): void {
     console.log("Hello!");
@@ -85,23 +85,21 @@ const CustomerDetails: React.FC<User> = ({}) => {
           <p>Adresse: {state.address}</p>
         </div>
       )}
-      {/* TODO: CustomerServiceCard */}
-      {services.length > 0 ? (
-        <div>
-          <h3>Services:</h3>
-          <ul>
-            {services.map((service) => (
-              <li key={service._id}>
-                <p>Name: {service.name}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        <p>No services found for this user.</p>
-      )}
+
       <h1 className="font-bold text-black text-2xl">Kundens servicer</h1>
-      <CustomerServiceCard name={""} deleteServiceButton={printHello} />
+      {services.length > 0 ? (
+        services.map((service) => (
+          <div>
+            <CustomerServiceCard
+              key={service._id}
+              name={service.name}
+              deleteServiceButton={() => printHello()}
+            />
+          </div>
+        ))
+      ) : (
+        <p>Kunden har ikke nogen servicer.</p>
+      )}
     </>
   );
 };
