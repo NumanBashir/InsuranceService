@@ -146,17 +146,20 @@ const userController = {
     try {
       const { userId } = req.params;
 
-      // Find the user by ID in the database
-      const user = await User.findById(userId).populate("services", "name");
+      // Find the user by ID in the database and populate services with both _id and name
+      const user = await User.findById(userId).populate("services", "_id name");
 
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
 
-      // Extract the names of the services
-      const serviceNames = user.services.map((service) => service.name);
+      // Create an array of objects where each object contains a service's _id and name
+      const services = user.services.map((service) => ({
+        _id: service._id,
+        name: service.name,
+      }));
 
-      return res.status(200).json(serviceNames);
+      return res.status(200).json(services);
     } catch (error) {
       console.error("Error fetching services by user ID:", error);
       return res.status(500).json({ error: "Internal Server Error" });
