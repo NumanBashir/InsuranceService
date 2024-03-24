@@ -8,6 +8,10 @@ export default {
         secondary: "#53759B",
         tertiary: "#5CA9DD",
       },
+      spacing: {
+        '100': '25rem',
+        '128': '32rem'
+      },
     },
   },
   plugins: [],

@@ -1,5 +1,5 @@
 // CustomerHome.tsx
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ServiceCard from "../../components/ServiceCard";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -50,7 +50,7 @@ const CustomerHome = () => {
         </span>
       </div>
       <div className="absolute top-60 left-0 right-0 flex justify-center items-center">
-        <img src="/TopService.png" className="w-[700px]" />
+        <img src="billede.png" className="w-[700px]" />
       </div>
       {loading ? (
         <Spinner />
