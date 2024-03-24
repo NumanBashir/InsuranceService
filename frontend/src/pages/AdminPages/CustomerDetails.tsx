@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Spinner from "../../components/Spinner";
+import CustomerServiceCard from "../../components/CustomerServiceCard";
 
 interface User {
   _id?: string;
@@ -11,8 +12,14 @@ interface User {
   address?: string;
 }
 
+interface Service {
+  _id: string;
+  name: string;
+}
+
 const CustomerDetails: React.FC<User> = ({}) => {
   const [user, setUser] = useState<User>({});
+  const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -41,6 +48,27 @@ const CustomerDetails: React.FC<User> = ({}) => {
     }
   }, [state?.userId, navigate]);
 
+  useEffect(() => {
+    if (state?.userId) {
+      setLoading(true);
+      axios
+        .get(`http://localhost:3000/users/${state.userId}/services`)
+        .then((response) => {
+          setServices(response.data); // Directly setting the array of strings
+        })
+        .catch((error) => {
+          console.error("Error fetching services: ", error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [state?.userId]);
+
+  function printHello(): void {
+    console.log("Hello!");
+  }
+
   return (
     <>
       {loading ? (
@@ -57,6 +85,23 @@ const CustomerDetails: React.FC<User> = ({}) => {
           <p>Adresse: {state.address}</p>
         </div>
       )}
+      {/* TODO: CustomerServiceCard */}
+      {services.length > 0 ? (
+        <div>
+          <h3>Services:</h3>
+          <ul>
+            {services.map((service) => (
+              <li key={service._id}>
+                <p>Name: {service.name}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <p>No services found for this user.</p>
+      )}
+      <h1 className="font-bold text-black text-2xl">Kundens servicer</h1>
+      <CustomerServiceCard name={""} deleteServiceButton={printHello} />
     </>
   );
 };
