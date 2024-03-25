@@ -80,26 +80,31 @@ const CustomerDetails: React.FC<User> = ({}) => {
               Her kan du se informationer om {state.name}
             </span>
           </div>
-          <p>Navn: {state.name}</p>
-          <p>Email: {state.email}</p>
-          <p>Adresse: {state.address}</p>
+          <div className="w-1/3 p-4 my-4 mx-auto text-center font-medium text-xl bg-userColor shadow-sm rounded-lg">
+            <p>Navn: {state.name}</p>
+            <p>Email: {state.email}</p>
+            <p>Adresse: {state.address}</p>
+          </div>
         </div>
       )}
-
-      <h1 className="font-bold text-black text-2xl">Kundens servicer</h1>
-      {services.length > 0 ? (
-        services.map((service) => (
-          <div>
-            <CustomerServiceCard
-              key={service._id}
-              name={service.name}
-              deleteServiceButton={() => printHello()}
-            />
-          </div>
-        ))
-      ) : (
-        <p>Kunden har ikke nogen servicer.</p>
-      )}
+      <div>
+        <h1 className="font-bold text-black text-2xl flex justify-center">
+          Kundens servicer
+        </h1>
+        {services.length > 0 ? (
+          services.map((service) => (
+            <div>
+              <CustomerServiceCard
+                key={service._id}
+                name={service.name}
+                deleteServiceButton={() => printHello()}
+              />
+            </div>
+          ))
+        ) : (
+          <p>Kunden har ikke nogen servicer.</p>
+        )}
+      </div>
     </>
   );
 };
