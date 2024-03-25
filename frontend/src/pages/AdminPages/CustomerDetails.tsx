@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Spinner from "../../components/Spinner";
-import CustomerServiceCard from "../../components/CustomerServiceCard";
+import CustomerServiceInsuranceCard from "../../components/CustomerServiceInsuranceCard";
 
 interface User {
   _id?: string;
@@ -17,9 +17,15 @@ interface Service {
   name: string;
 }
 
+interface Insurance {
+  _id: string;
+  name: string;
+}
+
 const CustomerDetails: React.FC<User> = ({}) => {
   const [user, setUser] = useState<User>({});
   const [services, setServices] = useState<Service[]>([]);
+  const [insurances, setInsurances] = useState<Insurance[]>([]);
   const [loading, setLoading] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -65,6 +71,22 @@ const CustomerDetails: React.FC<User> = ({}) => {
       });
   }, [id]);
 
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(`http://localhost:3000/users/${id}/insurances`)
+      .then((response) => {
+        console.log("Insurances response:", response.data);
+        setInsurances(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching insurances: ", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [id]);
+
   function printHello(): void {
     console.log("Hello!");
   }
@@ -94,7 +116,7 @@ const CustomerDetails: React.FC<User> = ({}) => {
         {services.length > 0 ? (
           services.map((service) => (
             <div>
-              <CustomerServiceCard
+              <CustomerServiceInsuranceCard
                 key={service._id}
                 name={service.name}
                 deleteServiceButton={() => printHello()}
@@ -103,6 +125,20 @@ const CustomerDetails: React.FC<User> = ({}) => {
           ))
         ) : (
           <p>Kunden har ikke nogen servicer.</p>
+        )}
+      </div>
+      <div>
+        {insurances.length > 0 ? (
+          insurances.map((insurance) => (
+            <div>
+              <CustomerServiceInsuranceCard
+                key={insurance._id}
+                name={insurance.name}
+              />
+            </div>
+          ))
+        ) : (
+          <p>Kunden har ikke nogen forsikringer.</p>
         )}
       </div>
     </>
