@@ -172,14 +172,20 @@ const userController = {
       const { userId } = req.params;
 
       // Find the user by ID in the database
-      const user = await User.findById(userId).populate("insurances", "name"); // Only populate the name field from insurances
+      const user = await User.findById(userId).populate(
+        "insurances",
+        "_id name"
+      );
 
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
 
       // Extract the names of the insurances
-      const insuranceNames = user.insurances.map((insurance) => insurance.name);
+      const insuranceNames = user.insurances.map((insurance) => ({
+        _id: insurance._id,
+        name: insurance.name,
+      }));
 
       return res.status(200).json(insuranceNames);
     } catch (error) {
