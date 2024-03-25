@@ -37,6 +37,7 @@ const CustomerDetails: React.FC<User> = ({}) => {
   };
 
   const { id } = useParams();
+  const { id: userId } = useParams();
 
   useEffect(() => {
     if (state?.userId) {
@@ -87,8 +88,24 @@ const CustomerDetails: React.FC<User> = ({}) => {
       });
   }, [id]);
 
-  function printHello(): void {
-    console.log("Hello!");
+  function deleteService(serviceId: string): void {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this service?"
+    );
+    if (isConfirmed && userId) {
+      // Ensure userId is defined
+      axios
+        .delete(`http://localhost:3000/users/${userId}/services/${serviceId}`)
+        .then(() => {
+          // Logic after successful deletion
+          setServices((currentServices) =>
+            currentServices.filter((service) => service._id !== serviceId)
+          );
+        })
+        .catch((error) => {
+          console.error("Error deleting service: ", error);
+        });
+    }
   }
 
   return (
@@ -109,25 +126,27 @@ const CustomerDetails: React.FC<User> = ({}) => {
           </div>
         </div>
       )}
-      <div>
+      <div className="my-8">
         <h1 className="font-bold text-black text-2xl flex justify-center">
           Kundens servicer
         </h1>
         {services.length > 0 ? (
           services.map((service) => (
-            <div>
-              <CustomerServiceInsuranceCard
-                key={service._id}
-                name={service.name}
-                deleteServiceButton={() => printHello()}
-              />
-            </div>
+            <CustomerServiceInsuranceCard
+              key={service._id}
+              name={service.name}
+              serviceId={service._id}
+              deleteServiceButton={deleteService}
+            />
           ))
         ) : (
           <p>Kunden har ikke nogen servicer.</p>
         )}
       </div>
       <div>
+        <h1 className="font-bold text-black text-2xl flex justify-center">
+          Kundens forsikringer
+        </h1>
         {insurances.length > 0 ? (
           insurances.map((insurance) => (
             <div>
