@@ -1,31 +1,22 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
 
-interface Product {
-  id: number;
-  name: string;
-  img: string;
-  price: number;
-}
-
-const products: Product[] = [
-  { id: 1, name: "Product 1", img: "/leakbot.png", price: 10.0 },
-  { id: 2, name: "Product 2", img: "/leakbot.png", price: 20.0 },
-  { id: 3, name: "Product 3", img: "/leakbot.png", price: 30.0 },
-  { id: 4, name: "Product 4", img: "/leakbot.png", price: 40.0 },
-];
-
-const ShoppingCart: React.FC = () => {
+const ShoppingCart = () => {
+  const { cartItems, removeFromCart } = useCart();
   const navigate = useNavigate();
-  const handleDelete = (productId: number) => {
-    console.log("Deleting product with id:", productId);
+
+  const handleDelete = (id: string) => {
+    removeFromCart(id);
   };
 
-  const totalPrice = products.reduce((acc, product) => acc + product.price, 0);
+  const totalPrice = cartItems.reduce((acc, item) => acc + item.price, 0);
 
   const handleGoToPayment = () => {
     navigate("/checkout");
   };
+
+  console.log(cartItems);
 
   return (
     <>
@@ -49,23 +40,22 @@ const ShoppingCart: React.FC = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {products.map((product) => (
-                <tr key={product.id} className="hover:bg-gray-50">
+              {cartItems.map((item) => (
+                <tr key={item._id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap flex items-center space-x-3">
                     <img
-                      src={product.img}
-                      alt={product.name}
+                      src="/leakbot.png"
                       className="h-20 rounded-full object-cover"
                     />
                     <span className="font-medium text-gray-900">
-                      {product.name}
+                      {item.name}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
-                    {product.price}kr
+                    {item.price}kr
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <button onClick={() => handleDelete(product.id)}>
+                    <button onClick={() => handleDelete(item._id)}>
                       <img
                         src="/trash-bin 1.png"
                         alt="Delete"

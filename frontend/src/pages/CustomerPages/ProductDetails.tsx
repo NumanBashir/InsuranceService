@@ -16,12 +16,12 @@ const ProductDetails = () => {
   const [service, setService] = useState<Service>({});
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
-  const { cartItems } = useCart();
-  const { addToCart } = useCart();
+  const { cartItems, addToCart } = useCart();
   const navigate = useNavigate();
 
   const handleAddToCart = () => {
-    if (service._id && service.name && service.price) {
+    console.log("Adding to cart", service);
+    if (service._id && service.name && service.price !== undefined) {
       addToCart({
         _id: service._id,
         name: service.name,

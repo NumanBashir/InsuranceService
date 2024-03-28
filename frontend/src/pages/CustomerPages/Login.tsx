@@ -1,9 +1,9 @@
-// Login.tsx
 import axios from "axios";
 import NameCard from "../../components/NameCard";
 import { useState, useEffect } from "react";
 import Spinner from "../../components/Spinner";
 import AdminNameCard from "../../components/AdminNameCard";
+import { useCart } from "../../context/CartContext";
 
 type User = {
   _id: string;
@@ -13,9 +13,11 @@ type User = {
 const Login = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(false);
+  const { clearCart } = useCart();
 
   useEffect(() => {
     setLoading(true);
+    clearCart();
     axios
       .get("http://localhost:3000/users")
       .then((response) => {
