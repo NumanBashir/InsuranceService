@@ -5,7 +5,7 @@ const userController = {
   // POST new user
   createUser: async (req, res) => {
     try {
-      const { name, email, number, address, insurances } = req.body;
+      const { name, email, number, address, insurances, services } = req.body;
 
       if (!name || !email) {
         return res
@@ -13,7 +13,7 @@ const userController = {
           .send({ message: "Name and email fields are required." });
       }
 
-      // Validate insurance IDs
+      // Validate insurance IDs (No changes here)
       const insuranceIdsAreValid = await Promise.all(
         insurances.map(async (id) => {
           const insurance = await Insurance.findById(id);
@@ -36,12 +36,14 @@ const userController = {
           .json({ message: "A user with this email already exists." });
       }
 
+      // Now include services in the new user creation
       const newUser = new User({
         name,
         email,
         number,
         address,
         insurances,
+        services, // Add this line
         orders: [],
       });
 
@@ -61,7 +63,8 @@ const userController = {
           path: "orders",
           populate: { path: "services", select: "name" },
         })
-        .populate("insurances", "name");
+        .populate("insurances", "name")
+        .populate("services", "name");
 
       return res.status(200).json({
         count: users.length,
@@ -83,7 +86,8 @@ const userController = {
           path: "orders",
           populate: { path: "services", select: "name" },
         })
-        .populate("insurances", "name");
+        .populate("insurances", "name")
+        .populate("services", "name");
 
       if (!user) {
         return res.status(404).json({ message: "User not found" });
@@ -107,7 +111,8 @@ const userController = {
           path: "orders",
           populate: { path: "services", select: "name" },
         })
-        .populate("insurances", "name");
+        .populate("insurances", "name")
+        .populate("services", "name");
 
       if (!user) {
         return res.status(404).json({ message: "User not found" });
@@ -120,7 +125,107 @@ const userController = {
     }
   },
 
-  // TODO: GET user(s) by name if contains in search query
+  searchUsersByName: async (req, res) => {
+    try {
+      const { query } = req.query;
+
+      const users = await User.find({
+        $or: [{ name: { $regex: query, $options: "i" } }],
+        // $or: [{ email: { $regex: query, $options: "i" } }],
+      });
+
+      return res.status(200).json(users);
+    } catch (error) {
+      console.error("Error searching for users:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
+
+  // GET services by user ID
+  getServicesByUserId: async (req, res) => {
+    try {
+      const { userId } = req.params;
+
+      // Find the user by ID in the database and populate services with both _id and name
+      const user = await User.findById(userId).populate("services", "_id name");
+
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      // Create an array of objects where each object contains a service's _id and name
+      const services = user.services.map((service) => ({
+        _id: service._id,
+        name: service.name,
+      }));
+
+      return res.status(200).json(services);
+    } catch (error) {
+      console.error("Error fetching services by user ID:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
+
+  // GET insurances by user ID
+  getInsurancesByUserId: async (req, res) => {
+    try {
+      const { userId } = req.params;
+
+      // Find the user by ID in the database
+      const user = await User.findById(userId).populate(
+        "insurances",
+        "_id name"
+      );
+
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      // Extract the names of the insurances
+      const insuranceNames = user.insurances.map((insurance) => ({
+        _id: insurance._id,
+        name: insurance.name,
+      }));
+
+      return res.status(200).json(insuranceNames);
+    } catch (error) {
+      console.error("Error fetching insurances by user ID:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
+
+  deleteServiceFromUser: async (req, res) => {
+    try {
+      const { userId, serviceId } = req.params;
+
+      // Find the user and remove the service ID from their services array
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      // Check if the service is actually in the user's services list
+      if (!user.services.includes(serviceId)) {
+        return res
+          .status(404)
+          .json({ message: "Service not found in user's services list" });
+      }
+
+      // Remove the service from the user's services list
+      user.services = user.services.filter(
+        (sId) => sId.toString() !== serviceId
+      );
+      await user.save();
+
+      return res.status(200).json({
+        message: "Service removed from user successfully",
+        services: user.services.name, // Optionally return the updated list of services
+      });
+    } catch (error) {
+      console.error("Error removing service from user:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
 };
 
 export default userController;

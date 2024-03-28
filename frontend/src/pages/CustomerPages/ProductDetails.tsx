@@ -34,7 +34,7 @@ const ProductDetails = () => {
       {loading ? (
         <Spinner />
       ) : (
-        <div className="absolute top-32 flex justify-center items-center p-5 my-10">
+        <div className="absolute top-32 right-0 left-0 flex justify-center items-center p-5 my-10">
           <img src="/fysio.jpeg" className="w-2/5 rounded-lg" />
           <div className="ml-5 w-1/4">
             <div className="text-white">

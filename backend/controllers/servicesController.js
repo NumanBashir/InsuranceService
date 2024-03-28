@@ -1,5 +1,5 @@
 import { Service } from "../models/Service.js";
-import { User}  from '../models/User.js';
+import { User } from "../models/User.js";
 
 const serviceController = {
   // POST new service
@@ -8,8 +8,8 @@ const serviceController = {
       if (
         !req.body.name ||
         !req.body.description ||
-        req.body.price === undefined || 
-        req.body.price === null || 
+        req.body.price === undefined ||
+        req.body.price === null ||
         !req.body.variations ||
         !req.body.eligibleInsurances
       ) {
@@ -51,31 +51,50 @@ const serviceController = {
   getUserSpecificService: async (req, res) => {
     try {
       const { userId } = req.params;
-      const user = await User.findById(userId).populate('insurances');
+      const user = await User.findById(userId)
+        .populate("insurances")
+        .populate("services");
       if (!user) {
-          return res.status(404).json({ message: 'User not found' });
+        return res.status(404).json({ message: "User not found" });
       }
-  
-      const userInsuranceIds = user.insurances.map(ins => ins._id.toString());
-  
+
+      // Map user's current service IDs to a format we can easily check against
+      const userServiceIds = user.services.map((service) =>
+        service._id.toString()
+      );
+
+      // Retrieve all services
       let services = await Service.find({});
 
       let serviceMap = new Map();
 
-      services.forEach(service => {
+      services.forEach((service) => {
+        // Skip if the user already has this service
+        if (userServiceIds.includes(service._id.toString())) {
+          return;
+        }
+
         // Check if the user has all the insurances required by the service
-        const isUserEligibleForService = service.eligibleInsurances.every(id => 
-          userInsuranceIds.includes(id.toString())
+        const isUserEligibleForService = service.eligibleInsurances.every(
+          (id) =>
+            user.insurances.some((ins) => ins._id.toString() === id.toString())
         );
-        
+
         let existingService = serviceMap.get(service.name);
 
         if (isUserEligibleForService) {
           // Prioritize free services or services not already in the map, or paid services when a free one isn't available
-          if (service.price === 0 || !existingService || (existingService && existingService.price > 0)) {
+          if (
+            service.price === 0 ||
+            !existingService ||
+            (existingService && existingService.price > 0)
+          ) {
             serviceMap.set(service.name, service);
           }
-        } else if (!existingService && service.eligibleInsurances.length === 0) {
+        } else if (
+          !existingService &&
+          service.eligibleInsurances.length === 0
+        ) {
           // Include the service if it requires no specific insurances and it's not already included
           serviceMap.set(service.name, service);
         }
@@ -83,16 +102,16 @@ const serviceController = {
 
       const servicesToShow = Array.from(serviceMap.values());
 
+      // Optional: sort services by name
       servicesToShow.sort((a, b) => a.name.localeCompare(b.name));
 
       res.json(servicesToShow);
     } catch (error) {
-      console.error('Error fetching services for user:', error);
-      res.status(500).json({ message: 'Internal Server Error' });
+      console.error("Error fetching services for user:", error);
+      res.status(500).json({ message: "Internal Server Error" });
     }
   },
 
-  
   // GET service by ID
   getServiceById: async (req, res) => {
     try {

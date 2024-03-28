@@ -3,6 +3,7 @@ import axios from "axios";
 import NameCard from "../../components/NameCard";
 import { useState, useEffect } from "react";
 import Spinner from "../../components/Spinner";
+import AdminNameCard from "../../components/AdminNameCard";
 
 type User = {
   _id: string;
@@ -18,7 +19,7 @@ const Login = () => {
     axios
       .get("http://localhost:3000/users")
       .then((response) => {
-        const firstThreeUsers = response.data.data.slice(0, 3);
+        const firstThreeUsers = response.data.data.slice(0, 5);
         setUsers(firstThreeUsers);
         setLoading(false);
       })
@@ -44,7 +45,7 @@ const Login = () => {
               </div>
               <div className="flex flex-col items-start px-8 pr-24">
                 <span className="text-xl font-semibold">Admin Login:</span>
-                <NameCard name="Allan Admin" />
+                <AdminNameCard name="Allan Admin" />
               </div>
             </div>
           </div>

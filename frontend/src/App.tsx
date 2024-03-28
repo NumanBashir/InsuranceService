@@ -8,6 +8,8 @@ import ProductDetails from "./pages/CustomerPages/ProductDetails";
 import ShoppingCart from "./pages/CustomerPages/ShoppingCart";
 import Checkout from "./pages/CustomerPages/Checkout";
 import Confirmation from "./pages/CustomerPages/Confirmation";
+import AdminHome from "./pages/AdminPages/AdminHome";
+import CustomerDetails from "./pages/AdminPages/CustomerDetails";
 
 const App = () => {
   return (
@@ -57,6 +59,22 @@ const App = () => {
         element={
           <Layout>
             <Confirmation />
+          </Layout>
+        }
+      />
+      <Route
+        path="/admin"
+        element={
+          <Layout>
+            <AdminHome />
+          </Layout>
+        }
+      />
+      <Route
+        path="/customer/:id"
+        element={
+          <Layout>
+            <CustomerDetails />
           </Layout>
         }
       />

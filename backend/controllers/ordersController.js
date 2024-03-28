@@ -6,29 +6,39 @@ const ordersController = {
     try {
       const { email, services } = req.body;
 
+      // Find the user by email
       const user = await User.findOne({ email });
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
 
+      // Create a new order with the provided services
       const newOrder = new Order({
-        email: email,
-        services: services,
+        email,
+        services,
       });
 
       const savedOrder = await newOrder.save();
 
-      // Push the ID of the newly created order to the user's orders array
+      // Add the new order to the user's orders array
       user.orders.push(savedOrder._id);
+
+      // Add services from the order to the user's services array if not already present
+      services.forEach((serviceId) => {
+        if (!user.services.includes(serviceId)) {
+          user.services.push(serviceId);
+        }
+      });
+
       await user.save();
 
-      // Populate the savedOrder before sending the response
+      // Populate the savedOrder with service names before sending the response
       const populatedOrder = await Order.findById(savedOrder._id).populate(
         "services",
         "name"
       );
 
-      // Transform the populated order to include only service names
+      // Prepare the order data for the response, including service names
       const transformedOrder = {
         ...populatedOrder._doc,
         services: populatedOrder.services.map((service) => service.name),

@@ -7,6 +7,7 @@ export default {
         primary: "#131947",
         secondary: "#53759B",
         tertiary: "#5CA9DD",
+        userColor: "#C9D7E0",
       },
       spacing: {
         '100': '25rem',
