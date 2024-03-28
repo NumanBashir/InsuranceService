@@ -3,6 +3,8 @@ import ServiceCard from "../../components/ServiceCard";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Spinner from "../../components/Spinner";
+import { FaShoppingBasket } from "react-icons/fa";
+import { useCart } from "../../context/CartContext";
 
 interface Service {
   _id: string;
@@ -17,6 +19,7 @@ const CustomerHome = () => {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { cartItems } = useCart();
 
   const handlePurchase = (serviceId: string, serviceName: string) => {
     const encodedServiceName = encodeURIComponent(serviceName);
@@ -41,44 +44,56 @@ const CustomerHome = () => {
     }
   }, [state?.userId, navigate]); // Add navigate to the dependency array
 
+  const goToShoppingCart = () => {
+    navigate("/shopping-cart");
+  };
+
   return (
-    <div className="pt-24">
-      <div className="absolute top-36 left-0 right-0 flex justify-center items-center">
-        <span className="font-bold text-white text-3xl">
-          Velkommen til InsuranceService, {state.name}
-        </span>
+    <>
+      <div className="fixed top-0 right-0 p-4">
+        <button type="button" onClick={goToShoppingCart}>
+          <FaShoppingBasket className="text-3xl" />
+          <span>{cartItems.length}</span>
+        </button>
       </div>
-      <div className="absolute top-60 left-0 right-0 flex justify-center items-center">
-        <img src="billede.png" className="w-[700px]" />
-      </div>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <div className="flex flex-col justify-center items-center my-16">
-          <h1 className="text-4xl font-bold text-black text-center">
-            Se hvilke servicer du er berettiget til og kan købe!
-          </h1>
-          <hr className="border border-gray-300 w-full max-w-4xl my-16" />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-4 w-full max-w-4xl">
-            {services.length > 0 ? (
-              services.map((service) => (
-                <ServiceCard
-                  key={service._id}
-                  title={service.name}
-                  price={service.price}
-                  description={service.description}
-                  onButtonClick={() =>
-                    handlePurchase(service._id, service.name)
-                  }
-                />
-              ))
-            ) : (
-              <p>No available services to display.</p>
-            )}
-          </div>
+      <div className="pt-24">
+        <div className="absolute top-36 left-0 right-0 flex justify-center items-center">
+          <span className="font-bold text-white text-3xl">
+            Velkommen til InsuranceService, {state.name}
+          </span>
         </div>
-      )}
-    </div>
+        <div className="absolute top-60 left-0 right-0 flex justify-center items-center">
+          <img src="billede.png" className="w-[700px]" />
+        </div>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <div className="flex flex-col justify-center items-center my-16">
+            <h1 className="text-4xl font-bold text-black text-center">
+              Se hvilke servicer du er berettiget til og kan købe!
+            </h1>
+            <hr className="border border-gray-300 w-full max-w-4xl my-16" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-4 w-full max-w-4xl">
+              {services.length > 0 ? (
+                services.map((service) => (
+                  <ServiceCard
+                    key={service._id}
+                    title={service.name}
+                    price={service.price}
+                    description={service.description}
+                    onButtonClick={() =>
+                      handlePurchase(service._id, service.name)
+                    }
+                  />
+                ))
+              ) : (
+                <p>No available services to display.</p>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

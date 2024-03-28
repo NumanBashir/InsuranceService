@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../../components/Spinner";
+import { FaShoppingBasket } from "react-icons/fa";
+import { useCart } from "../../context/CartContext";
 
 interface Service {
   _id?: string;
@@ -14,6 +16,19 @@ const ProductDetails = () => {
   const [service, setService] = useState<Service>({});
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
+  const { cartItems } = useCart();
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
+
+  const handleAddToCart = () => {
+    if (service._id && service.name && service.price) {
+      addToCart({
+        _id: service._id,
+        name: service.name,
+        price: service.price,
+      });
+    }
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -29,8 +44,18 @@ const ProductDetails = () => {
       });
   }, [id]);
 
+  const goToShoppingCart = () => {
+    navigate("/shopping-cart");
+  };
+
   return (
     <>
+      <div className="fixed top-0 right-0 p-4">
+        <button type="button" onClick={goToShoppingCart}>
+          <FaShoppingBasket className="text-3xl" />
+          <span>{cartItems.length}</span>
+        </button>
+      </div>
       {loading ? (
         <Spinner />
       ) : (
@@ -45,6 +70,7 @@ const ProductDetails = () => {
 
             <div className="flex flex-col gap-2">
               <button
+                onClick={handleAddToCart}
                 className="bg-white hover:bg-gray-100 text-tertiary border-2 border-tertiary font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="button"
               >
@@ -53,6 +79,7 @@ const ProductDetails = () => {
               <button
                 className="bg-tertiary hover:bg-blue-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="button"
+                onClick={goToShoppingCart}
               >
                 KØB NU
               </button>
