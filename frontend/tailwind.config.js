@@ -9,6 +9,10 @@ export default {
         tertiary: "#5CA9DD",
         userColor: "#C9D7E0",
       },
+      spacing: {
+        '100': '25rem',
+        '128': '32rem'
+      },
     },
   },
   plugins: [],

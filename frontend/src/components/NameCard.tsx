@@ -15,10 +15,12 @@ const NameCard: React.FC<Props> = ({ name, userId }) => {
 
   return (
     <div
-      className="inline-flex justify-center items-center text-white drop-shadow-md bg-tertiary rounded-md w-1/4 m-1 p-1"
+      className="flex justify-start items-center text-white bg-tertiary rounded-lg shadow-lg w-full my-2 py-2 cursor-pointer"
       onClick={handleNavigate}
     >
-      <button>{name}</button>
+      <button className="text-lg font-medium w-full text-center px-4">
+        {name}
+      </button>
     </div>
   );
 };
