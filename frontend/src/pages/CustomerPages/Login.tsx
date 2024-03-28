@@ -49,7 +49,7 @@ const Login = () => {
             </div>
           </div>
           <div className="absolute top-36 left-128 right-0 flex justify-center items-center z-0">
-            <img src="Topservice.png" className="w-[500px] rounded-2xl" />
+            <img src="/TopService.png" className="w-[500px] rounded-2xl" />
           </div>
         </>
       )}
