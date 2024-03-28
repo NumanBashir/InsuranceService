@@ -50,12 +50,14 @@ const ProductDetails = () => {
               >
                 LÆG I INDKØBSKURVEN
               </button>
-              <button
-                className="bg-tertiary hover:bg-blue-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="button"
-              >
-                KØB NU
-              </button>
+              <a href="/Billing">
+                <button
+                  className="bg-tertiary hover:bg-blue-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  type="button"
+                >
+                  KØB NU
+                </button>
+              </a>
             </div>
           </div>
         </div>

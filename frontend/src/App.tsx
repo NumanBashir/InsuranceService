@@ -6,10 +6,11 @@ import Login from "./pages/CustomerPages/Login";
 import CustomerHome from "./pages/CustomerPages/CustomerHome";
 import ProductDetails from "./pages/CustomerPages/ProductDetails";
 import ShoppingCart from "./pages/CustomerPages/ShoppingCart";
-import Checkout from "./pages/CustomerPages/Checkout";
+import Checkout from "./pages/CustomerPages/Billing";
 import Confirmation from "./pages/CustomerPages/Confirmation";
 import AdminHome from "./pages/AdminPages/AdminHome";
 import CustomerDetails from "./pages/AdminPages/CustomerDetails";
+import Billing from "./pages/CustomerPages/Billing";
 
 const App = () => {
   return (
@@ -47,10 +48,10 @@ const App = () => {
         }
       />
       <Route
-        path="/checkout"
+        path="/billing"
         element={
           <Layout>
-            <Checkout />
+            <Billing />
           </Layout>
         }
       />
