@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Spinner from "../../components/Spinner";
+import useUserState from "../../hooks/userUseState";
 
 interface Service {
   _id?: string;
@@ -14,7 +15,8 @@ const ProductDetails = () => {
   const [service, setService] = useState<Service>({});
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
-
+  const navigate = useNavigate();
+  const userState = useUserState();
   useEffect(() => {
     setLoading(true);
     axios
@@ -28,6 +30,10 @@ const ProductDetails = () => {
         setLoading(false);
       });
   }, [id]);
+
+  const redirectToBilling = () => {
+    navigate("/billing", { state: userState });
+  };
 
   return (
     <>
@@ -50,14 +56,13 @@ const ProductDetails = () => {
               >
                 LÆG I INDKØBSKURVEN
               </button>
-              <a href="/Billing">
-                <button
-                  className="bg-tertiary hover:bg-blue-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  type="button"
-                >
-                  KØB NU
-                </button>
-              </a>
+              <button
+                className="bg-tertiary hover:bg-blue-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="button"
+                onClick={redirectToBilling}
+              >
+                KØB NU
+              </button>
             </div>
           </div>
         </div>

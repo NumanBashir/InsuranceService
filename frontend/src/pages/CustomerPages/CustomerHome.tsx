@@ -3,6 +3,7 @@ import ServiceCard from "../../components/ServiceCard";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Spinner from "../../components/Spinner";
+import useUserState from "../../hooks/userUseState";
 
 interface Service {
   _id: string;
@@ -12,23 +13,25 @@ interface Service {
 }
 
 const CustomerHome = () => {
-  const location = useLocation();
-  const state = location.state as { name: string; userId: string }; // Now we expect a userId to be passed as well
+  const userState = useUserState();
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handlePurchase = (serviceId: string, serviceName: string) => {
     const encodedServiceName = encodeURIComponent(serviceName);
-    navigate(`/product/${serviceId}?name=${encodedServiceName}`);
+    navigate(`/product/${serviceId}?name=${encodedServiceName}`, {
+      state: userState,
+    });
   };
 
   useEffect(() => {
-    if (state?.userId) {
+    if (userState?.userId) {
       setLoading(true);
+      //console.log(state?.userId);
       axios
         .get(
-          `http://localhost:3000/services/getUserSpecificService/${state.userId}`
+          `http://localhost:3000/services/getUserSpecificService/${userState.userId}`
         )
         .then((response) => {
           setServices(response.data);
@@ -39,13 +42,13 @@ const CustomerHome = () => {
           setLoading(false);
         });
     }
-  }, [state?.userId, navigate]); // Add navigate to the dependency array
+  }, [userState?.userId, navigate]);
 
   return (
     <div className="pt-24">
       <div className="absolute top-36 left-0 right-0 flex justify-center items-center">
         <span className="font-bold text-white text-3xl">
-          Velkommen til InsuranceService, {state.name}
+          Velkommen til InsuranceService, {userState?.name}
         </span>
       </div>
       <div className="absolute top-60 left-0 right-0 flex justify-center items-center">

@@ -1,4 +1,3 @@
-// TextField.tsx
 import React from "react";
 
 type TextFieldProps = {
@@ -7,7 +6,7 @@ type TextFieldProps = {
   value: string;
   placeholder?: string;
   readOnly?: boolean;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void; // Include the onChange handler
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const TextField: React.FC<TextFieldProps> = ({
@@ -16,10 +15,10 @@ const TextField: React.FC<TextFieldProps> = ({
   value,
   placeholder,
   readOnly,
-  onChange, // Ensure onChange is received as a prop
+  onChange,
 }) => {
   return (
-    <div className="mb-4">
+    <div className={`mb-4 ${readOnly ? "text-gray-500" : ""}`}>
       <label className="block text-gray-700 text-sm font-bold mb-2">
         {label}
       </label>
@@ -29,8 +28,10 @@ const TextField: React.FC<TextFieldProps> = ({
         value={value}
         placeholder={placeholder}
         readOnly={readOnly}
-        onChange={onChange} // Bind the onChange handler to the input's onChange event
-        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        onChange={onChange}
+        className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+          readOnly ? "bg-gray-100 cursor-not-allowed" : ""
+        }`}
       />
     </div>
   );
