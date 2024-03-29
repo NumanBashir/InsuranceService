@@ -50,10 +50,12 @@ const CustomerHome = () => {
 
   return (
     <>
-      <div className="fixed top-0 right-0 p-4">
-        <button type="button" onClick={goToShoppingCart}>
-          <FaShoppingBasket className="text-3xl" />
-          <span>{cartItems.length}</span>
+      <div className="absolute top-2 right-2 p-8 flex items-center justify-center">
+        <button type="button" onClick={goToShoppingCart} className="relative">
+          <FaShoppingBasket className="text-3xl text-gray-700" />
+          <span className="absolute -top-4 -right-4 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+            {cartItems.length}
+          </span>
         </button>
       </div>
       <div className="pt-24">
