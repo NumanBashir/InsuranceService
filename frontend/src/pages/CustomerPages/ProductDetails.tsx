@@ -53,9 +53,13 @@ const ProductDetails = () => {
       <div className="absolute top-2 right-2 p-8 flex items-center justify-center">
         <button type="button" onClick={goToShoppingCart} className="relative">
           <FaShoppingBasket className="text-3xl text-gray-700" />
-          <span className="absolute -top-4 -right-4 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-xs text-white">
-            {cartItems.length}
-          </span>
+          {cartItems.length < 1 ? (
+            ""
+          ) : (
+            <span className="absolute -top-4 -right-4 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+              {cartItems.length}
+            </span>
+          )}
         </button>
       </div>
       {loading ? (
