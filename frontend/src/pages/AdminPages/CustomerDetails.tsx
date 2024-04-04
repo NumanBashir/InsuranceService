@@ -140,7 +140,9 @@ const CustomerDetails: React.FC<User> = ({}) => {
             />
           ))
         ) : (
-          <p>Kunden har ikke nogen servicer.</p>
+          <p className="flex justify-center w-full text-lg mt-4 italic">
+            Kunden har ikke nogen servicer.
+          </p>
         )}
       </div>
       <div>

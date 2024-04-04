@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../../components/Spinner";
+import { FaShoppingBasket } from "react-icons/fa";
+import { useCart } from "../../context/CartContext";
 import useUserState from "../../hooks/userUseState";
 
 interface Service {
@@ -15,8 +17,21 @@ const ProductDetails = () => {
   const [service, setService] = useState<Service>({});
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
+  const { cartItems, addToCart } = useCart();
   const navigate = useNavigate();
   const userState = useUserState();
+
+  const handleAddToCart = () => {
+    console.log("Adding to cart", service);
+    if (service._id && service.name && service.price !== undefined) {
+      addToCart({
+        _id: service._id,
+        name: service.name,
+        price: service.price,
+      });
+    }
+  };
+
   useEffect(() => {
     setLoading(true);
     axios
@@ -31,12 +46,24 @@ const ProductDetails = () => {
       });
   }, [id]);
 
-  const redirectToBilling = () => {
-    navigate("/billing", { state: userState });
+  const goToShoppingCart = () => {
+    navigate("/shopping-cart", { state: userState });
   };
 
   return (
     <>
+      <div className="absolute top-2 right-2 p-8 flex items-center justify-center">
+        <button type="button" onClick={goToShoppingCart} className="relative">
+          <FaShoppingBasket className="text-3xl text-gray-700" />
+          {cartItems.length < 1 ? (
+            ""
+          ) : (
+            <span className="absolute -top-4 -right-4 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+              {cartItems.length}
+            </span>
+          )}
+        </button>
+      </div>
       {loading ? (
         <Spinner />
       ) : (
@@ -51,6 +78,7 @@ const ProductDetails = () => {
 
             <div className="flex flex-col gap-2">
               <button
+                onClick={handleAddToCart}
                 className="bg-white hover:bg-gray-100 text-tertiary border-2 border-tertiary font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="button"
               >
@@ -59,7 +87,7 @@ const ProductDetails = () => {
               <button
                 className="bg-tertiary hover:bg-blue-300 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="button"
-                onClick={redirectToBilling}
+                onClick={goToShoppingCart}
               >
                 KØB NU
               </button>
