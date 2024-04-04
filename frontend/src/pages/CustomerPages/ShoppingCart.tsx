@@ -1,25 +1,58 @@
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import useUserState from "../../hooks/userUseState";
+import { useEffect, useState } from "react";
 
 const ShoppingCart = () => {
   const { cartItems, removeFromCart } = useCart();
   const navigate = useNavigate();
   const userState = useUserState();
+  const [showEmptyCartPopup, setShowEmptyCartPopup] = useState(false);
+
+  useEffect(() => {
+    if (cartItems.length === 0) {
+      // Trigger the popup if cart is empty
+      setShowEmptyCartPopup(true);
+    }
+  }, [cartItems.length]);
 
   const handleDelete = (id: string) => {
     removeFromCart(id);
   };
-
   const totalPrice = cartItems.reduce((acc, item) => acc + item.price, 0);
 
   const handleGoToPayment = () => {
-    navigate("/billing", { state: userState });
+    if (cartItems.length > 0) {
+      navigate("/billing", { state: userState });
+    } else {
+      setShowEmptyCartPopup(true);
+    }
   };
 
-  console.log("ShoppingCartPage: " + userState?.userId);
+  const redirectToHome = () => {
+    setShowEmptyCartPopup(false);
+    navigate("/home", { state: userState });
+  };
+  //bg-white hover:bg-gray-100 text-tertiary border-2 border-tertiary font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline
   return (
     <>
+      {showEmptyCartPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white p-5 rounded-lg text-center">
+            <h2 className="font-bold mb-4">Din indkøbskurv er tom</h2>
+            <h3 className="mb-4">
+              Du har ikke noget i din vogn. Tag det første skridt på en rejse
+              fyldt med opdagelser!
+            </h3>
+            <button
+              className="px-6 py-2 bg-tertiary text-white rounded-lg shadow hover:bg-blue-400"
+              onClick={redirectToHome}
+            >
+              Shop mode
+            </button>
+          </div>
+        </div>
+      )}
       <div className="">
         <h1 className="absolute top-40 left-0 right-0 mx-auto text-center font-bold text-white text-4xl">
           Din indkøbskurv
