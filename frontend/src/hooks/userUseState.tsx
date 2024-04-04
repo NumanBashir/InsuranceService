@@ -3,7 +3,12 @@ import { useLocation } from "react-router-dom";
 
 const useUserState = () => {
   const location = useLocation();
-  const state = location.state as { name: string; userId: string } | null;
+  const state = location.state as {
+    email: string;
+    name: string;
+    userId: string;
+    address: string;
+  } | null;
   return state;
 };
 

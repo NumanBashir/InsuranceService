@@ -3,6 +3,7 @@ import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Spinner from "../../components/Spinner";
 import CustomerServiceInsuranceCard from "../../components/CustomerServiceInsuranceCard";
+import useUserState from "../../hooks/userUseState";
 
 interface User {
   _id?: string;
@@ -23,28 +24,24 @@ interface Insurance {
 }
 
 const CustomerDetails: React.FC<User> = ({}) => {
+  const userState = useUserState();
   const [user, setUser] = useState<User>({});
   const [services, setServices] = useState<Service[]>([]);
   const [insurances, setInsurances] = useState<Insurance[]>([]);
   const [loading, setLoading] = useState(false);
-  const location = useLocation();
   const navigate = useNavigate();
-  const state = location.state as {
-    email: string;
-    name: string;
-    userId: string;
-    address: string;
-  };
 
   const { id } = useParams();
   const { id: userId } = useParams();
 
   useEffect(() => {
-    if (state?.userId) {
+    if (userState?.userId) {
       setLoading(true);
+      // Send a GET request to the server to fetch services associated with the user identified by userId
       axios
         .get(`http://localhost:3000/users/${id}/services`)
         .then((response) => {
+          //If succes extract data and update user state
           setUser(response.data);
           setLoading(false);
         })
@@ -53,11 +50,12 @@ const CustomerDetails: React.FC<User> = ({}) => {
           setLoading(false);
         });
     }
-  }, [state?.userId, navigate]);
+  }, [userState?.userId, navigate]);
 
   // useParam to get proper id
   useEffect(() => {
     setLoading(true);
+    // Send a GET request to fetch services associated with the user identified by the 'id'
     axios
       .get(`http://localhost:3000/users/${id}/services`)
       .then((response) => {
@@ -78,6 +76,7 @@ const CustomerDetails: React.FC<User> = ({}) => {
       .get(`http://localhost:3000/users/${id}/insurances`)
       .then((response) => {
         console.log("Insurances response:", response.data);
+        //Update information with the array of insurances from server
         setInsurances(response.data);
       })
       .catch((error) => {
@@ -98,6 +97,7 @@ const CustomerDetails: React.FC<User> = ({}) => {
         .delete(`http://localhost:3000/users/${userId}/services/${serviceId}`)
         .then(() => {
           // Logic after successful deletion
+          //update the services state by removing the deleted service
           setServices((currentServices) =>
             currentServices.filter((service) => service._id !== serviceId)
           );
@@ -116,13 +116,13 @@ const CustomerDetails: React.FC<User> = ({}) => {
         <div>
           <div className="absolute top-36 left-0 right-0 flex justify-center items-center">
             <span className="font-bold text-white text-3xl">
-              Her kan du se informationer om {state.name}
+              Her kan du se informationer om {userState?.name}
             </span>
           </div>
           <div className="w-1/3 p-4 my-4 mx-auto text-center font-medium text-xl bg-userColor shadow-sm rounded-lg">
-            <p>Navn: {state.name}</p>
-            <p>Email: {state.email}</p>
-            <p>Adresse: {state.address}</p>
+            <p>Navn: {userState?.name}</p>
+            <p>Email: {userState?.email}</p>
+            <p>Adresse: {userState?.address}</p>
           </div>
         </div>
       )}

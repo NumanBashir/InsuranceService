@@ -5,6 +5,7 @@ import { HiMagnifyingGlass } from "react-icons/hi2";
 import axios from "axios";
 import CustomerInfoCard from "../../components/CustomerInfoCard";
 import Spinner from "../../components/Spinner";
+import useUserState from "../../hooks/userUseState";
 
 interface User {
   _id: string;
@@ -14,12 +15,7 @@ interface User {
 }
 
 const AdminHome = () => {
-  const location = useLocation();
-  const state = location.state as {
-    name: string;
-    email: string;
-    address: string;
-  };
+  const userState = useUserState();
   const [searchResults, setSearchResults] = useState<User[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchAttempted, setSearchAttempted] = useState(false);
@@ -29,11 +25,12 @@ const AdminHome = () => {
     e.preventDefault();
     setLoading(true);
     setSearchAttempted(true);
+    // Send a GET request to the server to search for users based on the searchQuery
     try {
       const response = await axios.get(
         `http://localhost:3000/users/search?query=${searchQuery}`
       );
-
+      // Extract search results data from the response
       setSearchResults(response.data);
     } catch (error) {
       console.error("Error fetching search results:", error);
@@ -47,7 +44,7 @@ const AdminHome = () => {
       <div>
         <div className="absolute top-36 left-0 right-0 flex justify-center items-center">
           <span className="font-bold text-white text-3xl">
-            Velkommen til din Admin side, {state.name}
+            Velkommen til din Admin side, {userState?.name}
           </span>
         </div>
 

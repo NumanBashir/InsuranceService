@@ -54,9 +54,12 @@ const Billing: React.FC = () => {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
+        // Send a GET request to the server to fetch user details based on userId
         const response = await axios.get<any>(
           `http://localhost:3000/users/${userState?.userId}`
         );
+
+        // Extract user data from the response
         const userData = response.data;
 
         const nameParts = userData.name.split(" ");
