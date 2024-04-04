@@ -1,6 +1,4 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useState } from "react";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import axios from "axios";
 import CustomerInfoCard from "../../components/CustomerInfoCard";

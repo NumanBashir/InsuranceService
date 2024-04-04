@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../../components/Spinner";
-import { FaShoppingBasket } from "react-icons/fa";
+
 import { useCart } from "../../context/CartContext";
 import useUserState from "../../hooks/userUseState";
+
+import Cart from "../../components/Cart";
 
 interface Service {
   _id?: string;
@@ -17,7 +19,7 @@ const ProductDetails = () => {
   const [service, setService] = useState<Service>({});
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
-  const { cartItems, addToCart } = useCart();
+  const { addToCart } = useCart();
   const navigate = useNavigate();
   const userState = useUserState();
 
@@ -49,21 +51,11 @@ const ProductDetails = () => {
   const goToShoppingCart = () => {
     navigate("/shopping-cart", { state: userState });
   };
+  console.log("productdetails: " + userState?.userId);
 
   return (
     <>
-      <div className="absolute top-2 right-2 p-8 flex items-center justify-center">
-        <button type="button" onClick={goToShoppingCart} className="relative">
-          <FaShoppingBasket className="text-3xl text-gray-700" />
-          {cartItems.length < 1 ? (
-            ""
-          ) : (
-            <span className="absolute -top-4 -right-4 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-xs text-white">
-              {cartItems.length}
-            </span>
-          )}
-        </button>
-      </div>
+      <Cart />
       {loading ? (
         <Spinner />
       ) : (

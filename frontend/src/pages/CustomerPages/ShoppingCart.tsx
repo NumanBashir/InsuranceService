@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import useUserState from "../../hooks/userUseState";
@@ -17,6 +16,8 @@ const ShoppingCart = () => {
   const handleGoToPayment = () => {
     navigate("/billing", { state: userState });
   };
+
+  console.log("ShoppingCartPage: " + userState?.userId);
   return (
     <>
       <div className="">

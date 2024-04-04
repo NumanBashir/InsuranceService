@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../../components/Spinner";
 import CustomerServiceInsuranceCard from "../../components/CustomerServiceInsuranceCard";
 import useUserState from "../../hooks/userUseState";
