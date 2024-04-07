@@ -2,11 +2,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../../components/Spinner";
-
 import { useCart } from "../../context/CartContext";
 import useUserState from "../../hooks/userUseState";
-
 import Cart from "../../components/Cart";
+import Popup from "../../components/PopUp";
 
 interface Service {
   _id?: string;
@@ -19,12 +18,19 @@ const ProductDetails = () => {
   const [service, setService] = useState<Service>({});
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
-  const { addToCart } = useCart();
+  const { addToCart, isDuplicateItem, setDuplicateItem } = useCart();
   const navigate = useNavigate();
   const userState = useUserState();
+  const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    if (isDuplicateItem) {
+      setShowPopup(true);
+      setDuplicateItem(false);
+    }
+  }, [isDuplicateItem, setDuplicateItem]);
 
   const handleAddToCart = () => {
-    console.log("Adding to cart", service);
     if (service._id && service.name && service.price !== undefined) {
       addToCart({
         _id: service._id,
@@ -32,6 +38,11 @@ const ProductDetails = () => {
         price: service.price,
       });
     }
+  };
+
+  // Ensure you handle the Popup close action
+  const closePopup = () => {
+    setShowPopup(false);
   };
 
   useEffect(() => {
@@ -51,11 +62,18 @@ const ProductDetails = () => {
   const goToShoppingCart = () => {
     navigate("/shopping-cart", { state: userState });
   };
-  console.log("productdetails: " + userState?.userId);
 
   return (
     <>
       <Cart />
+      {showPopup && (
+        <Popup
+          title="Notice"
+          message="This item is already in your cart"
+          showButton={false}
+          behavior={closePopup}
+        />
+      )}
       {loading ? (
         <Spinner />
       ) : (
