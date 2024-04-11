@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import TextField from "../../components/TextField";
 import useUserState from "../../hooks/userUseState";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 interface UserDetails {
   firstName: string;
@@ -22,6 +23,7 @@ interface Field {
 
 const Billing: React.FC = () => {
   const userState = useUserState();
+  const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState<UserDetails>({
     firstName: "",
     lastName: "",
@@ -37,8 +39,7 @@ const Billing: React.FC = () => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    alert("Form submitted. Check the console for details.");
-    console.log(userDetails);
+    navigate("/confirmation", { state: userState });
   };
 
   const handleChange = (
