@@ -29,7 +29,6 @@ const CustomerHome = () => {
   useEffect(() => {
     if (userState?.userId) {
       setLoading(true);
-      console.log(userState?.userId);
       axios
         .get(
           `http://localhost:3000/services/getUserSpecificService/${userState.userId}`

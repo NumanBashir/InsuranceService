@@ -24,7 +24,6 @@ const ProductDetails = () => {
   const userState = useUserState();
 
   const handleAddToCart = () => {
-    console.log("Adding to cart", service);
     if (service._id && service.name && service.price !== undefined) {
       addToCart({
         _id: service._id,
@@ -51,7 +50,6 @@ const ProductDetails = () => {
   const goToShoppingCart = () => {
     navigate("/shopping-cart", { state: userState });
   };
-  console.log("productdetails: " + userState?.userId);
 
   return (
     <>
