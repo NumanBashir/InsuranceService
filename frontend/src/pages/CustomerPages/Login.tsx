@@ -21,7 +21,7 @@ const Login = () => {
     axios
       .get("http://localhost:3000/users")
       .then((response) => {
-        const firstThreeUsers = response.data.data.slice(0, 5);
+        const firstThreeUsers = response.data.data.slice(0, 3);
         setUsers(firstThreeUsers);
         setLoading(false);
       })
