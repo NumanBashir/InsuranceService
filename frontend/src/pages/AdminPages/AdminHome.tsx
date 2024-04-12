@@ -40,14 +40,14 @@ const AdminHome = () => {
   return (
     <>
       <div>
-        <div className="absolute top-36 left-0 right-0 flex justify-center items-center">
+        <div className="top-36 left-0 right-0 flex justify-center items-center">
           <span className="font-bold text-white text-3xl">
             Velkommen til din Admin side, {userState?.name}
           </span>
         </div>
 
         <form
-          className="max-w-md mx-auto absolute top-56 left-0 right-0 justify-center items-center"
+          className="max-w-md mx-auto right-0 justify-center items-center"
           onSubmit={handleSearch}
         >
           <label
@@ -57,7 +57,7 @@ const AdminHome = () => {
             Search
           </label>
           <div className="relative">
-            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"></div>
+            <div className="inset-y-0 start-0 flex items-center ps-3 pointer-events-none"></div>
             <input
               onChange={(e) => setSearchQuery(e.target.value)}
               value={searchQuery}
@@ -69,7 +69,7 @@ const AdminHome = () => {
             />
             <button
               type="submit"
-              className="text-white absolute end-2.5 bottom-2.5 bg-tertiary hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="text-white end-2.5 bottom-2.5 bg-tertiary hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               <HiMagnifyingGlass />
             </button>

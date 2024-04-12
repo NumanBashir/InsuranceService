@@ -14,7 +14,7 @@ const Header = () => {
   };
 
   return (
-    <header className="app-header m-6">
+    <header className="app-header">
       <button onClick={redirectToHomeOrAdmin}>
         <img src="/top_logo.png" className="w-64" alt="Home" />
       </button>

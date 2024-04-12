@@ -114,7 +114,7 @@ const CustomerDetails: React.FC<User> = ({}) => {
         <Spinner />
       ) : (
         <div>
-          <div className="absolute top-36 left-0 right-0 flex justify-center items-center">
+          <div className="flex justify-center items-center">
             <span className="font-bold text-white text-3xl">
               Her kan du se informationer om {userState?.name}
             </span>

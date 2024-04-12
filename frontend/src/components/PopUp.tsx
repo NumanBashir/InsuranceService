@@ -1,14 +1,14 @@
 interface PopupProps {
   title?: string;
   message?: string;
-  showButton?: boolean; 
-  behavior?: () => void; 
+  showButton?: boolean;
+  behavior?: () => void;
 }
 
 const Popup: React.FC<PopupProps> = ({
   title,
   message,
-  showButton = true, 
+  showButton = true,
   behavior,
 }) => {
   return (
@@ -17,7 +17,7 @@ const Popup: React.FC<PopupProps> = ({
         {!showButton && behavior && (
           <button
             onClick={behavior}
-            className="absolute top-0 right-0 mt-2 mr-2 text-2xl font-semibold"
+            className="mt-2 mr-2 text-2xl font-semibold"
             aria-label="Close"
           >
             &times; {/* This is a common symbol used for a close button */}

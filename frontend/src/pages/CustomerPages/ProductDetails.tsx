@@ -77,7 +77,7 @@ const ProductDetails = () => {
       {loading ? (
         <Spinner />
       ) : (
-        <div className="absolute top-32 right-0 left-0 flex justify-center items-center p-5 my-10">
+        <div className="flex justify-center items-center p-5 my-10">
           <img src="/fysio.jpeg" className="w-2/5 rounded-lg" />
           <div className="ml-5 w-1/4">
             <div className="text-white">
@@ -105,7 +105,7 @@ const ProductDetails = () => {
           </div>
         </div>
       )}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex justify-center items-center w-1/3 text-center">
+      <div className="flex justify-center items-center w-1/3 text-center">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua.
       </div>
