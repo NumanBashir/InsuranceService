@@ -1,4 +1,4 @@
-import React, { createContext, useContext, ReactNode, useState } from "react";
+import { createContext, useContext, ReactNode, useState } from "react";
 
 interface Service {
   _id: string;
@@ -11,6 +11,8 @@ interface CartContextType {
   addToCart: (item: Service) => void;
   removeFromCart: (id: string) => void;
   clearCart: () => void;
+  isDuplicateItem: boolean;
+  setDuplicateItem: (isDuplicate: boolean) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -25,22 +27,17 @@ export const useCart = (): CartContextType => {
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cartItems, setCartItems] = useState<Service[]>([]);
+  const [isDuplicateItem, setDuplicateItem] = useState(false);
 
   const addToCart = (item: Service) => {
-    setCartItems((prevItems) => {
-      // Check if the item already exists in the cart
-      const itemExists = prevItems.some(
-        (cartItem) => cartItem._id === item._id
-      );
-      if (itemExists) {
-        // Item already exists, don't add it again
-        alert("This item is already in your cart");
-        return prevItems;
-      } else {
-        // Item doesn't exist, add it to the cart
-        return [...prevItems, item];
-      }
-    });
+    const itemExists = cartItems.some((cartItem) => cartItem._id === item._id);
+    if (itemExists) {
+      setDuplicateItem(true);
+    } else {
+      // Item doesn't exist, add it to the cart
+      setCartItems((prevItems) => [...prevItems, item]);
+      if (isDuplicateItem) setDuplicateItem(false);
+    }
   };
 
   const removeFromCart = (id: string) => {
@@ -53,7 +50,14 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <CartContext.Provider
-      value={{ cartItems, addToCart, removeFromCart, clearCart }}
+      value={{
+        cartItems,
+        addToCart,
+        removeFromCart,
+        clearCart,
+        isDuplicateItem,
+        setDuplicateItem,
+      }}
     >
       {children}
     </CartContext.Provider>

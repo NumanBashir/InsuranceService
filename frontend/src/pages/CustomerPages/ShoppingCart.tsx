@@ -33,7 +33,8 @@ const ShoppingCart = () => {
     <>
       {showEmptyCartPopup && (
         <Popup
-          onRedirectToHome={redirectToHome}
+          behavior={redirectToHome}
+          showButton={true}
           title="Din indkøbskurv er tom"
           message="Du har ikke noget i din vogn. Tag det første skridt på en rejse fyldt
           med opdagelser!"
