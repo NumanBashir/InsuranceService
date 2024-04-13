@@ -1,0 +1,10 @@
+POST new user template:
+
+{
+    "name": "Nye Morten Ranjitkar",
+    "email": "mortenranjitkar3@gmail.com",
+    "number": 22334455,
+    "address": "Cobham 1",
+    "insurances": ["65e9ac2ac12630b0b88c2b5c", "65e086210b38ae73399c7895"],
+    "services": ["65e9aa7ec12630b0b88c2b56", "65e9ab82c12630b0b88c2b58", "65e9a86dc12630b0b88c2b4a", "65e9acdac12630b0b88c2b5f"]
+}
