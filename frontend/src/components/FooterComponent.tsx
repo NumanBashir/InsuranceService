@@ -5,7 +5,7 @@ import { SiTrustpilot } from "react-icons/si";
 const FooterComponent = () => {
   return (
     <>
-      <Footer className="mt-[500px] bg-primary rounded-none ">
+      <Footer className="mt-36 bg-primary rounded-none ">
         <div className="w-full">
           <div className="grid w-full grid-cols-2 gap-8 px-6 py-8 md:grid-cols-3">
             <div>
