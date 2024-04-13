@@ -1,9 +1,8 @@
 import axios from "axios";
-import NameCard from "../../components/NameCard";
 import { useState, useEffect } from "react";
 import Spinner from "../../components/Spinner";
-import AdminNameCard from "../../components/AdminNameCard";
 import { useCart } from "../../context/CartContext";
+import UserCard from "../../components/UserCard";
 
 type User = {
   _id: string;
@@ -42,12 +41,12 @@ const Login = () => {
               <div className="flex flex-col items-start mb-4 px-8 pr-24">
                 <span className="text-xl font-semibold">Kunde Login:</span>
                 {users.map((user) => (
-                  <NameCard key={user._id} name={user.name} userId={user._id} />
+                  <UserCard key={user._id} name={user.name} userId={user._id} />
                 ))}
               </div>
               <div className="flex flex-col items-start px-8 pr-24">
                 <span className="text-xl font-semibold">Admin Login:</span>
-                <AdminNameCard name="Allan Admin" />
+                <UserCard name="Allan Admin" />
               </div>
             </div>
           </div>

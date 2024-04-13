@@ -6,11 +6,15 @@ interface Props {
   userId?: string;
 }
 
-const NameCard: React.FC<Props> = ({ name, userId }) => {
+const UserCard: React.FC<Props> = ({ name, userId }) => {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate("/home", { state: { name, userId } });
+    if (userId) {
+      navigate("/home", { state: { name, userId } });
+    } else {
+      navigate("/admin", { state: { name } });
+    }
   };
 
   return (
@@ -25,4 +29,4 @@ const NameCard: React.FC<Props> = ({ name, userId }) => {
   );
 };
 
-export default NameCard;
+export default UserCard;
