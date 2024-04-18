@@ -187,7 +187,7 @@ const Billing: React.FC = () => {
         </div>
         <button
           type="submit"
-          className="mt-4 bg-tertiary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="mt-4 px-6 py-2 bg-tertiary text-white rounded-lg shadow hover:opacity-75 transition duration-300"
         >
           Submit
         </button>
