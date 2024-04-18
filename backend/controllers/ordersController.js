@@ -4,7 +4,7 @@ import { User } from "../models/User.js";
 const ordersController = {
   createOrder: async (req, res) => {
     try {
-      const { email, services } = req.body;
+      const { email, otherInfo, services } = req.body;
 
       // Find the user by email
       const user = await User.findOne({ email });
@@ -15,6 +15,7 @@ const ordersController = {
       // Create a new order with the provided services
       const newOrder = new Order({
         email,
+        otherInfo,
         services,
       });
 

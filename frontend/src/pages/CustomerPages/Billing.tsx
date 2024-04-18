@@ -3,6 +3,7 @@ import TextField from "../../components/TextField";
 import useUserState from "../../hooks/userUseState";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
 
 interface UserDetails {
   firstName: string;
@@ -16,12 +17,8 @@ interface UserDetails {
   additionalInfo: string;
 }
 
-interface Field {
-  label: string;
-  name: keyof UserDetails;
-}
-
 const Billing: React.FC = () => {
+  const { cartItems, clearCart } = useCart();
   const userState = useUserState();
   const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState<UserDetails>({
@@ -36,10 +33,31 @@ const Billing: React.FC = () => {
     additionalInfo: "",
   });
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    navigate("/confirmation", { state: userState });
+    const orderData = {
+      email: userDetails.email,
+      otherInfo: userDetails.additionalInfo,
+      services: cartItems.map((item) => item._id),
+    };
+
+    try {
+      // Send a POST request to your orders endpoint
+      const response = await axios.post(
+        "http://localhost:3000/orders",
+        orderData
+      );
+
+      clearCart();
+
+      navigate("/confirmation", {
+        state: { ...userState, orderDetails: response.data },
+      });
+      console.log("Order created:", response.data);
+    } catch (error) {
+      console.error("Error creating order:", error);
+    }
   };
 
   const handleChange = (
@@ -88,13 +106,6 @@ const Billing: React.FC = () => {
     }
   }, [userState?.userId]);
 
-  const fields: Field[] = [
-    { label: "Fornavn", name: "firstName" },
-    { label: "Efternavn", name: "lastName" },
-    { label: "Email", name: "email" },
-    { label: "Telefon", name: "number" },
-  ];
-
   return (
     <div className="container mx-auto p-8">
       <form onSubmit={handleSubmit}>
@@ -102,15 +113,32 @@ const Billing: React.FC = () => {
           <h2 className="text-lg font-semibold">Faktureringsoplysninger</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {fields.map((field) => (
-            <TextField
-              key={field.name}
-              label={field.label}
-              name={field.name}
-              value={userDetails[field.name]}
-              readOnly
-            />
-          ))}
+          <TextField
+            label="Fornavn"
+            name="fname"
+            value={userDetails.firstName}
+            readOnly
+          />
+          <TextField
+            label="Efternavn"
+            name="lname"
+            value={userDetails.lastName}
+            readOnly
+          />
+          <TextField
+            label="Email"
+            name="email"
+            value={userDetails.email}
+            readOnly
+          />
+          <TextField
+            key={userDetails.number}
+            label="Telefon"
+            name="phone"
+            value={userDetails.number}
+            readOnly
+          />
+
           <div className="md:col-span-2">
             <TextField
               label="Adresse"
@@ -122,21 +150,21 @@ const Billing: React.FC = () => {
           <div className="md:col-span-2 flex flex-wrap gap-4">
             <TextField
               label="Kort nummer"
-              name="cardNumber" // Add 'name' prop here
+              name="cardNumber"
               value={userDetails.cardNumber}
               onChange={handleChange}
               placeholder="Kort nummer"
             />
             <TextField
               label="MM / YY"
-              name="expiry" // And here
+              name="expiry"
               value={userDetails.expiry}
               onChange={handleChange}
               placeholder="MM / YY"
             />
             <TextField
               label="CVV"
-              name="cvv" // And here
+              name="cvv"
               value={userDetails.cvv}
               onChange={handleChange}
               placeholder="CVV"
@@ -153,12 +181,13 @@ const Billing: React.FC = () => {
               placeholder="Tilføj kommentar"
               value={userDetails.additionalInfo}
               onChange={handleChange}
+              required
             />
           </div>
         </div>
         <button
           type="submit"
-          className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="mt-4 px-6 py-2 bg-tertiary text-white rounded-lg shadow hover:opacity-75 transition duration-300"
         >
           Submit
         </button>
