@@ -5,6 +5,11 @@ const orderSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
+  otherInfo: {
+    type: String,
+    required: false,
+  },
   services: [{ type: mongoose.Schema.Types.ObjectId, ref: "Service" }],
 });
 

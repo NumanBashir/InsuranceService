@@ -79,7 +79,11 @@ const CustomerHome = () => {
                   />
                 ))
               ) : (
-                <p>No available services to display.</p>
+                <div className="w-full flex justify-center items-center">
+                  <span className="text-lg">
+                    Der er desværre ingen servicer 😢
+                  </span>
+                </div>
               )}
             </div>
           </div>

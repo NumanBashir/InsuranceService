@@ -8,6 +8,8 @@ const Header = () => {
   const redirectToHomeOrAdmin = () => {
     if (userState?.userId) {
       navigate("/home", { state: userState });
+    } else if (location.pathname === "/") {
+      navigate("/");
     } else {
       navigate("/admin");
     }
