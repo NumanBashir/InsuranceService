@@ -114,12 +114,12 @@ const CustomerDetails: React.FC<User> = ({}) => {
         <Spinner />
       ) : (
         <div>
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center mt-12">
             <span className="font-bold text-white text-3xl">
               Her kan du se informationer om {userState?.name}
             </span>
           </div>
-          <div className="w-1/3 p-4 my-4 mx-auto text-center font-medium text-xl bg-userColor shadow-sm rounded-lg">
+          <div className="w-1/3 p-4 my-4 mx-auto text-center font-medium text-xl bg-userColor shadow-sm rounded-lg mt-56">
             <p>Navn: {userState?.name}</p>
             <p>Email: {userState?.email}</p>
             <p>Adresse: {userState?.address}</p>

@@ -98,10 +98,12 @@ const Billing: React.FC = () => {
   return (
     <div className="container mx-auto p-8">
       <form onSubmit={handleSubmit}>
-        <div className="mb-6">
-          <h2 className="text-lg font-semibold">Faktureringsoplysninger</h2>
+        <div className="text-center mb-6 mt-8 ">
+          <h2 className="font-bold text-4xl text-white">
+            Faktureringsoplysninger
+          </h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-52">
           {fields.map((field) => (
             <TextField
               key={field.name}
@@ -122,21 +124,21 @@ const Billing: React.FC = () => {
           <div className="md:col-span-2 flex flex-wrap gap-4">
             <TextField
               label="Kort nummer"
-              name="cardNumber" // Add 'name' prop here
+              name="cardNumber" 
               value={userDetails.cardNumber}
               onChange={handleChange}
               placeholder="Kort nummer"
             />
             <TextField
               label="MM / YY"
-              name="expiry" // And here
+              name="expiry" 
               value={userDetails.expiry}
               onChange={handleChange}
               placeholder="MM / YY"
             />
             <TextField
               label="CVV"
-              name="cvv" // And here
+              name="cvv" 
               value={userDetails.cvv}
               onChange={handleChange}
               placeholder="CVV"
