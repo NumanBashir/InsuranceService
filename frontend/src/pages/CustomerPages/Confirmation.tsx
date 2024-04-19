@@ -39,15 +39,11 @@ const Confirmation = () => {
     <div className="container max-w-2xl mx-auto p-8">
       {order ? (
         <div>
-          <div className="text-center">
-            <div className="font-bold text-black text-3xl">
-              Order Bekræftelse
-            </div>
-            <div className="font-bold text-black text-xl">
-              Tak for din ordre!
-            </div>
+          <div className="text-center text-white">
+            <div className="font-bold text-5xl mb-6">Order Bekræftelse</div>
+            <div className="text-2xl">Tak for din ordre!</div>
           </div>
-          <div className="flex-1 overflow-x-auto shadow-lg rounded-lg">
+          <div className="flex-1 overflow-x-auto shadow-lg rounded-lg mt-52">
             <table className="table-auto w-full bg-white rounded-lg">
               <thead className="text-gray-700 bg-gray-100">
                 <tr>
