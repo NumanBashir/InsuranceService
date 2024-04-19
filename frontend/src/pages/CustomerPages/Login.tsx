@@ -36,7 +36,7 @@ const Login = () => {
         <Spinner />
       ) : (
         <>
-          <div className="relative mt-1 ml-52 flex justify-start z-10">
+          <div className="relative mt-12 ml-52 flex justify-start z-10">
             <div className="bg-white shadow-lg rounded-2xl py-8 m-4 w-1/2 max-w-2xl z-10">
               <div className="flex flex-col items-start mb-4 px-8 pr-24">
                 <span className="text-xl font-semibold">Kunde Login:</span>
@@ -54,7 +54,7 @@ const Login = () => {
           <div className="mt-64 ml-64 flex justify-center items-center z-0">
             <img
               src="/TopService.png"
-              className="w-[500px] rounded-2xl absolute top-24 right-52"
+              className="w-[500px] rounded-2xl absolute top-32 right-52"
             />
           </div>
         </>
