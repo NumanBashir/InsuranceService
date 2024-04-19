@@ -77,16 +77,15 @@ const ProductDetails = () => {
       {loading ? (
         <Spinner />
       ) : (
-        <div className="flex justify-center items-center p-5 my-10">
+        <div className="flex justify-center items-center my-10">
           <img src="/fysio.jpeg" className="w-2/5 rounded-lg" />
-          <div className="ml-5 w-1/4">
-            <div className="text-white">
+          <div className="ml-5 w-1/4 flex flex-col justify-between">
+            <div className="text-white mt-0 mb-auto">
               <h2 className="text-3xl font-bold mb-3">{service.name}</h2>
               <p className="mb-3">{service.description}</p>
               <p className="font-bold mb-10">{service.price} DKK</p>
             </div>
-
-            <div className="flex flex-col gap-4 ">
+            <div className="flex flex-col gap-4 mt-auto mb-0">
               <button
                 onClick={handleAddToCart}
                 className="bg-white hover:bg-gray-100 text-tertiary border-2 border-tertiary font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
