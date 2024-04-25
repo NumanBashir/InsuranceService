@@ -9,7 +9,7 @@ const CreateButton = () => {
   };
   return (
     <>
-      <div className="absolute top-2 right-2 p-8 flex items-center justify-center">
+      <div className="absolute top-6 right-44 flex items-center justify-center">
         <button type="button" onClick={goToCreateService} className="relative">
           <FiPlusSquare className="text-3xl text-green-500" />
         </button>
