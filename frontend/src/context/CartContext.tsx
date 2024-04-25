@@ -26,25 +26,40 @@ export const useCart = (): CartContextType => {
 };
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [cartItems, setCartItems] = useState<Service[]>([]);
+  const [cartItems, setCartItems] = useState<Service[]>(() => {
+    const localData = localStorage.getItem("cartItems");
+    return localData ? JSON.parse(localData) : [];
+  });
   const [isDuplicateItem, setDuplicateItem] = useState(false);
 
   const addToCart = (item: Service) => {
-    const itemExists = cartItems.some((cartItem) => cartItem._id === item._id);
-    if (itemExists) {
-      setDuplicateItem(true);
-    } else {
-      // Item doesn't exist, add it to the cart
-      setCartItems((prevItems) => [...prevItems, item]);
-      if (isDuplicateItem) setDuplicateItem(false);
-    }
+    setCartItems((prevItems) => {
+      const itemExists = prevItems.some(
+        (cartItem) => cartItem._id === item._id
+      );
+
+      if (itemExists) {
+        setDuplicateItem(true);
+        return prevItems;
+      } else {
+        setDuplicateItem(false);
+        const updatedCartItems = [...prevItems, item];
+        localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+        return updatedCartItems;
+      }
+    });
   };
 
   const removeFromCart = (id: string) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item._id !== id));
+    setCartItems((prevItems) => {
+      const updatedCartItems = prevItems.filter((item) => item._id !== id);
+      localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+      return updatedCartItems;
+    });
   };
 
   const clearCart = () => {
+    localStorage.removeItem("cartItems");
     setCartItems([]);
   };
 

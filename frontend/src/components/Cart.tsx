@@ -13,11 +13,11 @@ const Cart = () => {
   };
 
   return (
-    <div className="absolute top-2 right-2 p-8 flex items-center justify-center">
+    <div className="p-8 flex items-start justify-end absolute top-[-8px] right-0">
       <button type="button" onClick={goToShoppingCart} className="relative">
         <FaShoppingBasket className="text-3xl text-gray-700" />
         {cartItems.length > 0 && (
-          <span className="absolute -top-4 -right-4 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+          <span className="flex h-6 w-6 items-center absolute top-[-15px] right-[-15px] justify-center rounded-full bg-red-500 text-xs text-white">
             {cartItems.length}
           </span>
         )}

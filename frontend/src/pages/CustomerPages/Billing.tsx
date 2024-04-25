@@ -109,10 +109,12 @@ const Billing: React.FC = () => {
   return (
     <div className="container mx-auto p-8">
       <form onSubmit={handleSubmit}>
-        <div className="mb-6">
-          <h2 className="text-lg font-semibold">Faktureringsoplysninger</h2>
+        <div className="text-center mb-6 mt-8 ">
+          <h2 className="font-bold text-4xl text-white">
+            Faktureringsoplysninger
+          </h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-52">
           <TextField
             label="Fornavn"
             name="fname"
