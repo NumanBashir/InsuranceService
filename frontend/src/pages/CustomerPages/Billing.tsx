@@ -141,11 +141,11 @@ const Billing: React.FC = () => {
           </div>
           <div className="md:col-span-2 flex flex-wrap gap-4">
             <TextField
-              label="Kort nummer"
+              label="Kortnummer"
               name="cardNumber"
               value={userDetails.cardNumber}
               onChange={handleChange}
-              placeholder="Kort nummer"
+              placeholder="Kortnummer"
             />
             <TextField
               label="MM / YY"
