@@ -105,7 +105,7 @@ const CreateService: React.FC = () => {
         />
       )}
       <form onSubmit={handleSubmit} className="max-w-xl mx-auto p-4">
-        <div className="mb-4">
+        <div className="mb-4 rounded w-full text-gray-700">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="name"
@@ -122,7 +122,7 @@ const CreateService: React.FC = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
-        <div className="mb-4">
+        <div className="mb-4 rounded w-full text-gray-700">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="description"
@@ -138,7 +138,7 @@ const CreateService: React.FC = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
-        <div className="mb-4">
+        <div className="mb-4 rounded w-full text-gray-700">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="price"
@@ -155,7 +155,7 @@ const CreateService: React.FC = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
-        <div className="mb-4">
+        <div className="mb-4 rounded w-full text-gray-700">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="eligibleInsurances"
@@ -178,7 +178,7 @@ const CreateService: React.FC = () => {
         </div>
         <button
           type="submit"
-          className="bg-tertiary text-white rounded-lg shadow hover:opacity-75 transition duration-300 font-bold py-2 px-4 focus:outline-none focus:shadow-outline"
+          className="bg-tertiary text-white rounded-lg shadow hover:opacity-75 transition duration-300 font-bold focus:outline-none focus:shadow-outline py-2 px-3"
         >
           Submit
         </button>
