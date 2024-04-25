@@ -4,6 +4,7 @@ import axios from "axios";
 import CustomerInfoCard from "../../components/CustomerInfoCard";
 import Spinner from "../../components/Spinner";
 import useUserState from "../../hooks/userUseState";
+import CreateButton from "../../components/CreateButton";
 
 interface User {
   _id: string;
@@ -45,6 +46,7 @@ const AdminHome = () => {
             Velkommen til din Admin side, {userState?.name}
           </span>
         </div>
+        <CreateButton />
 
         <form
           className="max-w-md mx-auto absolute top-56 left-0 right-0 justify-center items-center"
