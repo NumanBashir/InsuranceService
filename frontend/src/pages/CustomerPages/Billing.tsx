@@ -106,6 +106,12 @@ const Billing: React.FC = () => {
     }
   }, [userState?.userId]);
 
+  const fields = [
+    { label: "Fornavn", name: "fname", value: userDetails.firstName },
+    { label: "Efternavn", name: "lname", value: userDetails.lastName },
+    { label: "Email", name: "email", value: userDetails.email },
+    { label: "Telefon", name: "phone", value: userDetails.number },
+  ];
   return (
     <div className="container mx-auto p-8">
       <form onSubmit={handleSubmit}>
@@ -115,31 +121,15 @@ const Billing: React.FC = () => {
           </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-52">
-          <TextField
-            label="Fornavn"
-            name="fname"
-            value={userDetails.firstName}
-            readOnly
-          />
-          <TextField
-            label="Efternavn"
-            name="lname"
-            value={userDetails.lastName}
-            readOnly
-          />
-          <TextField
-            label="Email"
-            name="email"
-            value={userDetails.email}
-            readOnly
-          />
-          <TextField
-            key={userDetails.number}
-            label="Telefon"
-            name="phone"
-            value={userDetails.number}
-            readOnly
-          />
+          {fields.map((field) => (
+            <TextField
+              key={field.name}
+              label={field.label}
+              name={field.name}
+              value={field.value}
+              readOnly
+            />
+          ))}
 
           <div className="md:col-span-2">
             <TextField
