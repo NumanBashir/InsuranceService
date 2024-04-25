@@ -13,7 +13,7 @@ const Cart = () => {
   };
 
   return (
-    <div className="p-8 flex items-start justify-end absolute top-[-8px] right-0">
+    <div className="p-8 flex items-start justify-end absolute top-[-8px] right-36">
       <button type="button" onClick={goToShoppingCart} className="relative">
         <FaShoppingBasket className="text-3xl text-gray-700" />
         {cartItems.length > 0 && (

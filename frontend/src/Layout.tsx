@@ -24,7 +24,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <div className="p-8 flex items-start justify-end absolute top-[-10px] right-10">
           <Button
             text="Log ud"
-            className="text-black border-tertiary  bg-white hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+            className="text-black border-tertiary  bg-white hover:bg-[#e6ecf0] focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
             onClick={handleClick}
           />
         </div>
