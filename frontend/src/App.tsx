@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./Layout";
 import Login from "./pages/CustomerPages/Login";
@@ -10,6 +9,7 @@ import AdminHome from "./pages/AdminPages/AdminHome";
 import CustomerDetails from "./pages/AdminPages/CustomerDetails";
 import Billing from "./pages/CustomerPages/Billing";
 import { CartProvider } from "./context/CartContext";
+import OrderLog from "./pages/AdminPages/OrderLog";
 
 const App = () => {
   return (
@@ -76,6 +76,14 @@ const App = () => {
           element={
             <Layout>
               <CustomerDetails />
+            </Layout>
+          }
+        />
+        <Route
+          path="/orderlog"
+          element={
+            <Layout>
+              <OrderLog />
             </Layout>
           }
         />

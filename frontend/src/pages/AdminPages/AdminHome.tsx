@@ -4,6 +4,7 @@ import axios from "axios";
 import CustomerInfoCard from "../../components/CustomerInfoCard";
 import Spinner from "../../components/Spinner";
 import useUserState from "../../hooks/userUseState";
+import { useNavigate } from "react-router-dom";
 
 interface User {
   _id: string;
@@ -14,6 +15,7 @@ interface User {
 
 const AdminHome = () => {
   const userState = useUserState();
+  const navigate = useNavigate();
   const [searchResults, setSearchResults] = useState<User[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchAttempted, setSearchAttempted] = useState(false);
@@ -37,6 +39,10 @@ const AdminHome = () => {
     }
   };
 
+  const handleClick = () => {
+    navigate("/orderlog");
+  };
+
   return (
     <>
       <div>
@@ -45,7 +51,7 @@ const AdminHome = () => {
             Velkommen til din Admin side, {userState?.name}
           </span>
         </div>
-
+        <button onClick={handleClick}>Test</button>
         <form
           className="max-w-md mx-auto flex justify-center items-center relative mt-8"
           onSubmit={handleSearch}
