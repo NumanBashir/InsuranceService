@@ -10,6 +10,7 @@ import AdminHome from "./pages/AdminPages/AdminHome";
 import CustomerDetails from "./pages/AdminPages/CustomerDetails";
 import Billing from "./pages/CustomerPages/Billing";
 import { CartProvider } from "./context/CartContext";
+import CreateService from "./pages/AdminPages/CreateService";
 
 const App = () => {
   return (
@@ -76,6 +77,14 @@ const App = () => {
           element={
             <Layout>
               <CustomerDetails />
+            </Layout>
+          }
+        />
+        <Route
+          path="/create-service"
+          element={
+            <Layout>
+              <CreateService />
             </Layout>
           }
         />
