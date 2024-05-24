@@ -40,10 +40,10 @@ const ShoppingCart = () => {
           med opdagelser!"
         />
       )}
-      <div className="text-center my-8">
-        <h1 className="font-bold text-4xl">Din indkøbskurv</h1>
+      <div className="text-center my-8 mt-16">
+        <h1 className="font-bold text-4xl text-white">Din indkøbskurv</h1>
       </div>
-      <div className="flex justify-center items-start space-x-4 mx-auto px-4">
+      <div className="flex justify-center items-start space-x-4 mx-auto px-16 mt-52">
         <div className="flex-1 overflow-x-auto shadow-lg rounded-lg">
           <table className="table-auto w-full bg-white rounded-lg">
             <thead className="text-gray-700 bg-gray-100">

@@ -47,15 +47,16 @@ const CustomerHome = () => {
   return (
     <>
       <Cart />
-      <div className="pt-24">
-        <div className="absolute top-36 left-0 right-0 flex justify-center items-center">
+      <div className="pt-0">
+        <div className="flex justify-center items-center mt-6">
           <span className="font-bold text-white text-3xl">
-            Velkommen til InsuranceService, {userState?.name}
+            Velkommen til InsuranceService, {userState?.name}!
           </span>
         </div>
-        <div className="absolute top-60 left-0 right-0 flex justify-center items-center">
-          <img src="billede.png" className="w-[700px]" />
+        <div className="flex justify-center items-center mt-16">
+          <img src="/billede.png" className="w-[700px]" />
         </div>
+
         {loading ? (
           <Spinner />
         ) : (
