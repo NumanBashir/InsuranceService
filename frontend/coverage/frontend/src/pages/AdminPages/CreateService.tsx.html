@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for frontend/src/pages/CustomerPages/Billing.tsx</title>
+    <title>Code coverage report for frontend/src/pages/AdminPages/CreateService.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">frontend/src/pages/CustomerPages</a> Billing.tsx</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">frontend/src/pages/AdminPages</a> CreateService.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/191</span>
+                <span class='fraction'>0/196</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/191</span>
+                <span class='fraction'>0/196</span>
             </div>
         
             
@@ -254,7 +254,12 @@
 <a name='L189'></a><a href='#L189'>189</a>
 <a name='L190'></a><a href='#L190'>190</a>
 <a name='L191'></a><a href='#L191'>191</a>
-<a name='L192'></a><a href='#L192'>192</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -445,197 +450,207 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import React, { useEffect, useState } from "react";</span></span></span>
-<span class="cstat-no" title="statement not covered" >import TextField from "../../components/TextField";</span>
-<span class="cstat-no" title="statement not covered" >import useUserState from "../../hooks/userUseState";</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import React, { useState, useEffect } from "react";</span></span></span>
 <span class="cstat-no" title="statement not covered" >import axios from "axios";</span>
+<span class="cstat-no" title="statement not covered" >import Select from "react-select";</span>
+<span class="cstat-no" title="statement not covered" >import makeAnimated from "react-select/animated";</span>
 <span class="cstat-no" title="statement not covered" >import { useNavigate } from "react-router-dom";</span>
-<span class="cstat-no" title="statement not covered" >import { useCart } from "../../context/CartContext";</span>
+<span class="cstat-no" title="statement not covered" >import Popup from "../../components/PopUp";</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >interface UserDetails {</span>
-<span class="cstat-no" title="statement not covered" >  firstName: string;</span>
-<span class="cstat-no" title="statement not covered" >  lastName: string;</span>
-<span class="cstat-no" title="statement not covered" >  email: string;</span>
-<span class="cstat-no" title="statement not covered" >  number: string;</span>
-<span class="cstat-no" title="statement not covered" >  address: string;</span>
-<span class="cstat-no" title="statement not covered" >  cardNumber: string;</span>
-<span class="cstat-no" title="statement not covered" >  expiry: string;</span>
-<span class="cstat-no" title="statement not covered" >  cvv: string;</span>
-<span class="cstat-no" title="statement not covered" >  additionalInfo: string;</span>
+<span class="cstat-no" title="statement not covered" >interface Insurance {</span>
+<span class="cstat-no" title="statement not covered" >  _id: string;</span>
+<span class="cstat-no" title="statement not covered" >  name: string;</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >const Billing: React.FC = () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  const { cartItems, clearCart } = useCart();</span>
-<span class="cstat-no" title="statement not covered" >  const userState = useUserState();</span>
-<span class="cstat-no" title="statement not covered" >  const navigate = useNavigate();</span>
-<span class="cstat-no" title="statement not covered" >  const [userDetails, setUserDetails] = useState&lt;UserDetails&gt;({</span>
-<span class="cstat-no" title="statement not covered" >    firstName: "",</span>
-<span class="cstat-no" title="statement not covered" >    lastName: "",</span>
-<span class="cstat-no" title="statement not covered" >    email: "",</span>
-<span class="cstat-no" title="statement not covered" >    number: "",</span>
-<span class="cstat-no" title="statement not covered" >    address: "",</span>
-<span class="cstat-no" title="statement not covered" >    cardNumber: "",</span>
-<span class="cstat-no" title="statement not covered" >    expiry: "",</span>
-<span class="cstat-no" title="statement not covered" >    cvv: "",</span>
-<span class="cstat-no" title="statement not covered" >    additionalInfo: "",</span>
+<span class="cstat-no" title="statement not covered" >interface ServiceFormData {</span>
+<span class="cstat-no" title="statement not covered" >  name: string;</span>
+<span class="cstat-no" title="statement not covered" >  description: string;</span>
+<span class="cstat-no" title="statement not covered" >  price: number;</span>
+<span class="cstat-no" title="statement not covered" >  eligibleInsurances: string[];</span>
+<span class="cstat-no" title="statement not covered" >}</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >const CreateService: React.FC = () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);</span>
+<span class="cstat-no" title="statement not covered" >  const [insurances, setInsurances] = useState&lt;Insurance[]&gt;([]);</span>
+<span class="cstat-no" title="statement not covered" >  const [formData, setFormData] = useState&lt;ServiceFormData&gt;({</span>
+<span class="cstat-no" title="statement not covered" >    name: "",</span>
+<span class="cstat-no" title="statement not covered" >    description: "",</span>
+<span class="cstat-no" title="statement not covered" >    price: 0,</span>
+<span class="cstat-no" title="statement not covered" >    eligibleInsurances: [],</span>
 <span class="cstat-no" title="statement not covered" >  });</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  const handleSubmit = async (event: React.FormEvent) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    event.preventDefault();</span>
+<span class="cstat-no" title="statement not covered" >  const navigate = useNavigate();</span>
+<span class="cstat-no" title="statement not covered" >  const animatedComponents = makeAnimated();</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    const orderData = {</span>
-<span class="cstat-no" title="statement not covered" >      email: userDetails.email,</span>
-<span class="cstat-no" title="statement not covered" >      otherInfo: userDetails.additionalInfo,</span>
-<span class="cstat-no" title="statement not covered" >      services: cartItems.map((item) =&gt; item._id),</span>
-<span class="cstat-no" title="statement not covered" >    };</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >      // Send a POST request to your orders endpoint</span>
-<span class="cstat-no" title="statement not covered" >      const response = await axios.post(</span>
-<span class="cstat-no" title="statement not covered" >        "http://localhost:3000/orders",</span>
-<span class="cstat-no" title="statement not covered" >        orderData</span>
-<span class="cstat-no" title="statement not covered" >      );</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >      clearCart();</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >      navigate("/confirmation", {</span>
-<span class="cstat-no" title="statement not covered" >        state: { ...userState, orderDetails: response.data },</span>
+<span class="cstat-no" title="statement not covered" >  useEffect(() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    axios</span>
+<span class="cstat-no" title="statement not covered" >      .get("http://localhost:3000/insurances")</span>
+<span class="cstat-no" title="statement not covered" >      .then((response) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        setInsurances(response.data.data);</span>
+<span class="cstat-no" title="statement not covered" >      })</span>
+<span class="cstat-no" title="statement not covered" >      .catch((error) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        console.error("Error fetching insurances:", error);</span>
 <span class="cstat-no" title="statement not covered" >      });</span>
-<span class="cstat-no" title="statement not covered" >      console.log("Order created:", response.data);</span>
-<span class="cstat-no" title="statement not covered" >    } catch (error) {</span>
-<span class="cstat-no" title="statement not covered" >      console.error("Error creating order:", error);</span>
+<span class="cstat-no" title="statement not covered" >  }, []);</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >  const handleChange = (</span>
+<span class="cstat-no" title="statement not covered" >    event: React.ChangeEvent&lt;</span>
+<span class="cstat-no" title="statement not covered" >      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement</span>
+<span class="cstat-no" title="statement not covered" >    &gt;</span>
+<span class="cstat-no" title="statement not covered" >  ) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    const { name, value } = event.target;</span>
+<span class="cstat-no" title="statement not covered" >    if (name === "eligibleInsurances") {</span>
+<span class="cstat-no" title="statement not covered" >      const options = (event.target as HTMLSelectElement).options;</span>
+<span class="cstat-no" title="statement not covered" >      const selectedOptions: string[] = [];</span>
+<span class="cstat-no" title="statement not covered" >      for (let i = 0; i &lt; options.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >        if (options[i].selected) {</span>
+<span class="cstat-no" title="statement not covered" >          selectedOptions.push(options[i].value);</span>
+<span class="cstat-no" title="statement not covered" >        }</span>
+<span class="cstat-no" title="statement not covered" >      }</span>
+<span class="cstat-no" title="statement not covered" >      setFormData((prev) =&gt; ({ ...prev, eligibleInsurances: selectedOptions }));</span>
+<span class="cstat-no" title="statement not covered" >    } else {</span>
+<span class="cstat-no" title="statement not covered" >      setFormData((prev) =&gt; ({ ...prev, [name]: value }));</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" >  };</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  const handleChange = (</span>
-<span class="cstat-no" title="statement not covered" >    event: React.ChangeEvent&lt;HTMLInputElement | HTMLTextAreaElement&gt;</span>
-<span class="cstat-no" title="statement not covered" >  ) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    const { name, value } = event.target;</span>
-<span class="cstat-no" title="statement not covered" >    setUserDetails((prevDetails) =&gt; ({</span>
-<span class="cstat-no" title="statement not covered" >      ...prevDetails,</span>
-<span class="cstat-no" title="statement not covered" >      [name]: value,</span>
+<span class="cstat-no" title="statement not covered" >  const handleSelectChange = (selectedOptions: any) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    const selectedInsurances = selectedOptions.map(</span>
+<span class="cstat-no" title="statement not covered" >      (option: { value: string; label: string }) =&gt; option.value</span>
+<span class="cstat-no" title="statement not covered" >    );</span>
+<span class="cstat-no" title="statement not covered" >    setFormData((prev) =&gt; ({</span>
+<span class="cstat-no" title="statement not covered" >      ...prev,</span>
+<span class="cstat-no" title="statement not covered" >      eligibleInsurances: selectedInsurances,</span>
 <span class="cstat-no" title="statement not covered" >    }));</span>
 <span class="cstat-no" title="statement not covered" >  };</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  useEffect(() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    const fetchUserDetails = async () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      try {</span>
-<span class="cstat-no" title="statement not covered" >        // Send a GET request to the server to fetch user details based on userId</span>
-<span class="cstat-no" title="statement not covered" >        const response = await axios.get&lt;any&gt;(</span>
-<span class="cstat-no" title="statement not covered" >          `http://localhost:3000/users/${userState?.userId}`</span>
-<span class="cstat-no" title="statement not covered" >        );</span>
+<span class="cstat-no" title="statement not covered" >  const redirectToAdmin = () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    setShowConfirmationPopup(false);</span>
+<span class="cstat-no" title="statement not covered" >    navigate("/admin");</span>
+<span class="cstat-no" title="statement not covered" >  };</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >        // Extract user data from the response</span>
-<span class="cstat-no" title="statement not covered" >        const userData = response.data;</span>
+<span class="cstat-no" title="statement not covered" >  const handleSubmit = (event: React.FormEvent) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    event.preventDefault();</span>
+<span class="cstat-no" title="statement not covered" >    axios</span>
+<span class="cstat-no" title="statement not covered" >      .post("http://localhost:3000/services", formData)</span>
+<span class="cstat-no" title="statement not covered" >      .then((response) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        setShowConfirmationPopup(true);</span>
+<span class="cstat-no" title="statement not covered" >        console.log(response.data);</span>
+<span class="cstat-no" title="statement not covered" >      })</span>
+<span class="cstat-no" title="statement not covered" >      .catch((error) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        console.error("Error posting service:", error);</span>
+<span class="cstat-no" title="statement not covered" >        alert("Failed to add service.");</span>
+<span class="cstat-no" title="statement not covered" >      });</span>
+<span class="cstat-no" title="statement not covered" >  };</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >        const nameParts = userData.name.split(" ");</span>
-<span class="cstat-no" title="statement not covered" >        const firstName = nameParts[0];</span>
-<span class="cstat-no" title="statement not covered" >        const lastName = nameParts.slice(1).join(" ");</span>
+<span class="cstat-no" title="statement not covered" >  const insuranceOptions = insurances.map((insurance) =&gt; ({</span>
+<span class="cstat-no" title="statement not covered" >    value: insurance._id,</span>
+<span class="cstat-no" title="statement not covered" >    label: insurance.name,</span>
+<span class="cstat-no" title="statement not covered" >  }));</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >        setUserDetails({</span>
-<span class="cstat-no" title="statement not covered" >          firstName: firstName,</span>
-<span class="cstat-no" title="statement not covered" >          lastName: lastName,</span>
-<span class="cstat-no" title="statement not covered" >          email: userData.email,</span>
-<span class="cstat-no" title="statement not covered" >          number: userData.number,</span>
-<span class="cstat-no" title="statement not covered" >          address: userData.address,</span>
-<span class="cstat-no" title="statement not covered" >          cardNumber: userDetails.cardNumber,</span>
-<span class="cstat-no" title="statement not covered" >          expiry: userDetails.expiry,</span>
-<span class="cstat-no" title="statement not covered" >          cvv: userDetails.cvv,</span>
-<span class="cstat-no" title="statement not covered" >          additionalInfo: userDetails.additionalInfo,</span>
-<span class="cstat-no" title="statement not covered" >        });</span>
-<span class="cstat-no" title="statement not covered" >      } catch (error) {</span>
-<span class="cstat-no" title="statement not covered" >        console.error("Error fetching user details:", error);</span>
-<span class="cstat-no" title="statement not covered" >      }</span>
-<span class="cstat-no" title="statement not covered" >    };</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    if (userState?.userId) {</span>
-<span class="cstat-no" title="statement not covered" >      fetchUserDetails();</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >  }, [userState?.userId]);</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  const fields = [</span>
-<span class="cstat-no" title="statement not covered" >    { label: "Fornavn", name: "fname", value: userDetails.firstName },</span>
-<span class="cstat-no" title="statement not covered" >    { label: "Efternavn", name: "lname", value: userDetails.lastName },</span>
-<span class="cstat-no" title="statement not covered" >    { label: "Email", name: "email", value: userDetails.email },</span>
-<span class="cstat-no" title="statement not covered" >    { label: "Telefon", name: "phone", value: userDetails.number },</span>
-<span class="cstat-no" title="statement not covered" >  ];</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
-<span class="cstat-no" title="statement not covered" >    &lt;div className="container mx-auto p-8"&gt;</span>
-<span class="cstat-no" title="statement not covered" >      &lt;form onSubmit={handleSubmit}&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;div className="text-center mb-6 mt-8 "&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;h2 className="font-bold text-4xl text-white"&gt;</span>
-<span class="cstat-no" title="statement not covered" >            Faktureringsoplysninger</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/h2&gt;</span>
+<span class="cstat-no" title="statement not covered" >    &lt;&gt;</span>
+<span class="cstat-no" title="statement not covered" >      {showConfirmationPopup &amp;&amp; (</span>
+<span class="cstat-no" title="statement not covered" >        &lt;Popup</span>
+<span class="cstat-no" title="statement not covered" >          behavior={redirectToAdmin}</span>
+<span class="cstat-no" title="statement not covered" >          buttonText="Go til admin"</span>
+<span class="cstat-no" title="statement not covered" >          title="Servicen er oprettet!"</span>
+<span class="cstat-no" title="statement not covered" >        /&gt;</span>
+<span class="cstat-no" title="statement not covered" >      )}</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >      &lt;div className="top-36 left-0 right-0 flex justify-center items-center mt-8"&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;span className="font-bold text-white text-3xl"&gt;</span>
+<span class="cstat-no" title="statement not covered" >          Udfyld formularen for at oprette en ny service</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/span&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;form onSubmit={handleSubmit} className="max-w-xl mx-auto p-4 mt-56"&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;div className="mb-4 rounded w-full"&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;label</span>
+<span class="cstat-no" title="statement not covered" >            className="block text-gray-700 text-sm font-bold mb-2"</span>
+<span class="cstat-no" title="statement not covered" >            htmlFor="name"</span>
+<span class="cstat-no" title="statement not covered" >          &gt;</span>
+<span class="cstat-no" title="statement not covered" >            Navn</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/label&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;input</span>
+<span class="cstat-no" title="statement not covered" >            type="text"</span>
+<span class="cstat-no" title="statement not covered" >            name="name"</span>
+<span class="cstat-no" title="statement not covered" >            value={formData.name}</span>
+<span class="cstat-no" title="statement not covered" >            onChange={handleChange}</span>
+<span class="cstat-no" title="statement not covered" >            placeholder="Navn"</span>
+<span class="cstat-no" title="statement not covered" >            required</span>
+<span class="cstat-no" title="statement not covered" >            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"</span>
+<span class="cstat-no" title="statement not covered" >          /&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-52"&gt;</span>
-<span class="cstat-no" title="statement not covered" >          {fields.map((field) =&gt; (</span>
-<span class="cstat-no" title="statement not covered" >            &lt;TextField</span>
-<span class="cstat-no" title="statement not covered" >              key={field.name}</span>
-<span class="cstat-no" title="statement not covered" >              label={field.label}</span>
-<span class="cstat-no" title="statement not covered" >              name={field.name}</span>
-<span class="cstat-no" title="statement not covered" >              value={field.value}</span>
-<span class="cstat-no" title="statement not covered" >              readOnly</span>
-<span class="cstat-no" title="statement not covered" >            /&gt;</span>
-<span class="cstat-no" title="statement not covered" >          ))}</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >          &lt;div className="md:col-span-2"&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;TextField</span>
-<span class="cstat-no" title="statement not covered" >              label="Adresse"</span>
-<span class="cstat-no" title="statement not covered" >              name="address"</span>
-<span class="cstat-no" title="statement not covered" >              value={userDetails.address}</span>
-<span class="cstat-no" title="statement not covered" >              readOnly</span>
-<span class="cstat-no" title="statement not covered" >            /&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;div className="md:col-span-2 flex flex-wrap gap-4"&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;TextField</span>
-<span class="cstat-no" title="statement not covered" >              label="Kortnummer"</span>
-<span class="cstat-no" title="statement not covered" >              name="cardNumber"</span>
-<span class="cstat-no" title="statement not covered" >              value={userDetails.cardNumber}</span>
-<span class="cstat-no" title="statement not covered" >              onChange={handleChange}</span>
-<span class="cstat-no" title="statement not covered" >              placeholder="Kortnummer"</span>
-<span class="cstat-no" title="statement not covered" >            /&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;TextField</span>
-<span class="cstat-no" title="statement not covered" >              label="MM / YY"</span>
-<span class="cstat-no" title="statement not covered" >              name="expiry"</span>
-<span class="cstat-no" title="statement not covered" >              value={userDetails.expiry}</span>
-<span class="cstat-no" title="statement not covered" >              onChange={handleChange}</span>
-<span class="cstat-no" title="statement not covered" >              placeholder="MM / YY"</span>
-<span class="cstat-no" title="statement not covered" >            /&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;TextField</span>
-<span class="cstat-no" title="statement not covered" >              label="CVV"</span>
-<span class="cstat-no" title="statement not covered" >              name="cvv"</span>
-<span class="cstat-no" title="statement not covered" >              value={userDetails.cvv}</span>
-<span class="cstat-no" title="statement not covered" >              onChange={handleChange}</span>
-<span class="cstat-no" title="statement not covered" >              placeholder="CVV"</span>
-<span class="cstat-no" title="statement not covered" >            /&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >          &lt;div className="md:col-span-2"&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;label className="block text-gray-700 text-sm font-bold mb-2"&gt;</span>
-<span class="cstat-no" title="statement not covered" >              Har du andre informationer vi burde vide om så skriv here</span>
-<span class="cstat-no" title="statement not covered" >            &lt;/label&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;textarea</span>
-<span class="cstat-no" title="statement not covered" >              name="additionalInfo"</span>
-<span class="cstat-no" title="statement not covered" >              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"</span>
-<span class="cstat-no" title="statement not covered" >              placeholder="Tilføj kommentar"</span>
-<span class="cstat-no" title="statement not covered" >              value={userDetails.additionalInfo}</span>
-<span class="cstat-no" title="statement not covered" >              onChange={handleChange}</span>
-<span class="cstat-no" title="statement not covered" >              required</span>
-<span class="cstat-no" title="statement not covered" >            /&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;div className="mb-4 rounded w-full"&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;label</span>
+<span class="cstat-no" title="statement not covered" >            className="block text-gray-700 text-sm font-bold mb-2"</span>
+<span class="cstat-no" title="statement not covered" >            htmlFor="description"</span>
+<span class="cstat-no" title="statement not covered" >          &gt;</span>
+<span class="cstat-no" title="statement not covered" >            Beskrivelse</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/label&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;textarea</span>
+<span class="cstat-no" title="statement not covered" >            name="description"</span>
+<span class="cstat-no" title="statement not covered" >            value={formData.description}</span>
+<span class="cstat-no" title="statement not covered" >            onChange={handleChange}</span>
+<span class="cstat-no" title="statement not covered" >            placeholder="Beskrivelse"</span>
+<span class="cstat-no" title="statement not covered" >            required</span>
+<span class="cstat-no" title="statement not covered" >            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"</span>
+<span class="cstat-no" title="statement not covered" >          /&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;div className="mb-4 rounded w-full text-gray-700"&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;label</span>
+<span class="cstat-no" title="statement not covered" >            className="block text-gray-700 text-sm font-bold mb-2"</span>
+<span class="cstat-no" title="statement not covered" >            htmlFor="price"</span>
+<span class="cstat-no" title="statement not covered" >          &gt;</span>
+<span class="cstat-no" title="statement not covered" >            Pris</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/label&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;input</span>
+<span class="cstat-no" title="statement not covered" >            type="number"</span>
+<span class="cstat-no" title="statement not covered" >            name="price"</span>
+<span class="cstat-no" title="statement not covered" >            value={formData.price}</span>
+<span class="cstat-no" title="statement not covered" >            onChange={handleChange}</span>
+<span class="cstat-no" title="statement not covered" >            placeholder="Price"</span>
+<span class="cstat-no" title="statement not covered" >            required</span>
+<span class="cstat-no" title="statement not covered" >            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"</span>
+<span class="cstat-no" title="statement not covered" >          /&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;div className="mb-4 rounded w-full text-gray-700"&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;label</span>
+<span class="cstat-no" title="statement not covered" >            className="block text-gray-700 text-sm font-bold mb-2"</span>
+<span class="cstat-no" title="statement not covered" >            htmlFor="eligibleInsurances"</span>
+<span class="cstat-no" title="statement not covered" >          &gt;</span>
+<span class="cstat-no" title="statement not covered" >            Berettiget Service(r)</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/label&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;Select</span>
+<span class="cstat-no" title="statement not covered" >            options={insuranceOptions}</span>
+<span class="cstat-no" title="statement not covered" >            components={animatedComponents}</span>
+<span class="cstat-no" title="statement not covered" >            closeMenuOnSelect={false}</span>
+<span class="cstat-no" title="statement not covered" >            isMulti</span>
+<span class="cstat-no" title="statement not covered" >            placeholder="Vælg"</span>
+<span class="cstat-no" title="statement not covered" >            className="basic-multi-select"</span>
+<span class="cstat-no" title="statement not covered" >            classNamePrefix="select"</span>
+<span class="cstat-no" title="statement not covered" >            onChange={handleSelectChange}</span>
+<span class="cstat-no" title="statement not covered" >            value={insuranceOptions.filter((option) =&gt;</span>
+<span class="cstat-no" title="statement not covered" >              formData.eligibleInsurances.includes(option.value)</span>
+<span class="cstat-no" title="statement not covered" >            )}</span>
+<span class="cstat-no" title="statement not covered" >          /&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;button</span>
 <span class="cstat-no" title="statement not covered" >          type="submit"</span>
-<span class="cstat-no" title="statement not covered" >          className="mt-4 px-6 py-2 bg-tertiary text-white rounded-lg shadow hover:opacity-75 transition duration-300"</span>
+<span class="cstat-no" title="statement not covered" >          className="bg-tertiary text-white rounded-lg shadow hover:opacity-75 transition duration-300 font-bold focus:outline-none focus:shadow-outline py-2 px-3"</span>
 <span class="cstat-no" title="statement not covered" >        &gt;</span>
 <span class="cstat-no" title="statement not covered" >          Submit</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/button&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;/form&gt;</span>
-<span class="cstat-no" title="statement not covered" >    &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >    &lt;/&gt;</span>
 <span class="cstat-no" title="statement not covered" >  );</span>
 <span class="cstat-no" title="statement not covered" >};</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >export default Billing;</span>
+<span class="cstat-no" title="statement not covered" >export default CreateService;</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

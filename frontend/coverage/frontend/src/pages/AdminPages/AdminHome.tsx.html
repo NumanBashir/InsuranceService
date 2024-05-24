@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/111</span>
+                <span class='fraction'>0/105</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/111</span>
+                <span class='fraction'>0/105</span>
             </div>
         
             
@@ -168,19 +168,7 @@
 <a name='L103'></a><a href='#L103'>103</a>
 <a name='L104'></a><a href='#L104'>104</a>
 <a name='L105'></a><a href='#L105'>105</a>
-<a name='L106'></a><a href='#L106'>106</a>
-<a name='L107'></a><a href='#L107'>107</a>
-<a name='L108'></a><a href='#L108'>108</a>
-<a name='L109'></a><a href='#L109'>109</a>
-<a name='L110'></a><a href='#L110'>110</a>
-<a name='L111'></a><a href='#L111'>111</a>
-<a name='L112'></a><a href='#L112'>112</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L106'></a><a href='#L106'>106</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -291,6 +279,7 @@
 <span class="cstat-no" title="statement not covered" >import CustomerInfoCard from "../../components/CustomerInfoCard";</span>
 <span class="cstat-no" title="statement not covered" >import Spinner from "../../components/Spinner";</span>
 <span class="cstat-no" title="statement not covered" >import useUserState from "../../hooks/userUseState";</span>
+<span class="cstat-no" title="statement not covered" >import CreateButton from "../../components/CreateButton";</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >interface User {</span>
 <span class="cstat-no" title="statement not covered" >  _id: string;</span>
@@ -327,47 +316,40 @@
 <span class="cstat-no" title="statement not covered" >  return (</span>
 <span class="cstat-no" title="statement not covered" >    &lt;&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;div&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;div className="absolute top-36 left-0 right-0 flex justify-center items-center"&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;div className="top-36 left-0 right-0 flex justify-center items-center mt-8"&gt;</span>
 <span class="cstat-no" title="statement not covered" >          &lt;span className="font-bold text-white text-3xl"&gt;</span>
 <span class="cstat-no" title="statement not covered" >            Velkommen til din Admin side, {userState?.name}</span>
 <span class="cstat-no" title="statement not covered" >          &lt;/span&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;CreateButton /&gt;</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >        &lt;form</span>
-<span class="cstat-no" title="statement not covered" >          className="max-w-md mx-auto absolute top-56 left-0 right-0 justify-center items-center"</span>
+<span class="cstat-no" title="statement not covered" >          className="max-w-md mx-auto flex justify-center items-center relative mt-8"</span>
 <span class="cstat-no" title="statement not covered" >          onSubmit={handleSearch}</span>
 <span class="cstat-no" title="statement not covered" >        &gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;label</span>
-<span class="cstat-no" title="statement not covered" >            htmlFor="default-search"</span>
-<span class="cstat-no" title="statement not covered" >            className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"</span>
+<span class="cstat-no" title="statement not covered" >          &lt;input</span>
+<span class="cstat-no" title="statement not covered" >            onChange={(e) =&gt; setSearchQuery(e.target.value)}</span>
+<span class="cstat-no" title="statement not covered" >            value={searchQuery}</span>
+<span class="cstat-no" title="statement not covered" >            type="search"</span>
+<span class="cstat-no" title="statement not covered" >            id="default-search"</span>
+<span class="cstat-no" title="statement not covered" >            className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"</span>
+<span class="cstat-no" title="statement not covered" >            placeholder="Søg på kundens navn eller email"</span>
+<span class="cstat-no" title="statement not covered" >            required</span>
+<span class="cstat-no" title="statement not covered" >          /&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;button</span>
+<span class="cstat-no" title="statement not covered" >            type="submit"</span>
+<span class="cstat-no" title="statement not covered" >            className="absolute right-2.5 bottom-2.5 bg-tertiary hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"</span>
 <span class="cstat-no" title="statement not covered" >          &gt;</span>
-<span class="cstat-no" title="statement not covered" >            Search</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/label&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;div className="relative"&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"&gt;&lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;input</span>
-<span class="cstat-no" title="statement not covered" >              onChange={(e) =&gt; setSearchQuery(e.target.value)}</span>
-<span class="cstat-no" title="statement not covered" >              value={searchQuery}</span>
-<span class="cstat-no" title="statement not covered" >              type="search"</span>
-<span class="cstat-no" title="statement not covered" >              id="default-search"</span>
-<span class="cstat-no" title="statement not covered" >              className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"</span>
-<span class="cstat-no" title="statement not covered" >              placeholder="Søg på kundens navn eller email"</span>
-<span class="cstat-no" title="statement not covered" >              required</span>
-<span class="cstat-no" title="statement not covered" >            /&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;button</span>
-<span class="cstat-no" title="statement not covered" >              type="submit"</span>
-<span class="cstat-no" title="statement not covered" >              className="text-white absolute end-2.5 bottom-2.5 bg-tertiary hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"</span>
-<span class="cstat-no" title="statement not covered" >            &gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;HiMagnifyingGlass /&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;/button&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;HiMagnifyingGlass className="text-white" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/button&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/form&gt;</span>
-<span class="cstat-no" title="statement not covered" >        {searchResults.length &gt; 0 &amp;&amp; (</span>
-<span class="cstat-no" title="statement not covered" >          &lt;h1 className="font-bold text-black text-2xl flex justify-center my-10"&gt;</span>
-<span class="cstat-no" title="statement not covered" >            Vælg hvilken kunde du ønsker at se</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/h1&gt;</span>
-<span class="cstat-no" title="statement not covered" >        )}</span>
-<span class="cstat-no" title="statement not covered" >        &lt;div&gt;</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >        &lt;div className="mt-40"&gt;</span>
+<span class="cstat-no" title="statement not covered" >          {searchResults.length &gt; 0 &amp;&amp; (</span>
+<span class="cstat-no" title="statement not covered" >            &lt;h1 className="font-bold text-black text-2xl flex justify-center my-10"&gt;</span>
+<span class="cstat-no" title="statement not covered" >              Vælg hvilken kunde du ønsker at se</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/h1&gt;</span>
+<span class="cstat-no" title="statement not covered" >          )}</span>
 <span class="cstat-no" title="statement not covered" >          {loading ? (</span>
 <span class="cstat-no" title="statement not covered" >            &lt;Spinner /&gt;</span>
 <span class="cstat-no" title="statement not covered" >          ) : searchAttempted ? (</span>
@@ -403,7 +385,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-18T12:24:15.968Z
+                at 2024-05-24T08:41:18.803Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

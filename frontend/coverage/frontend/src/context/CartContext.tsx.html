@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/65</span>
+                <span class='fraction'>0/80</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/65</span>
+                <span class='fraction'>0/80</span>
             </div>
         
             
@@ -128,7 +128,37 @@
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -221,25 +251,40 @@
 <span class="cstat-no" title="statement not covered" >};</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >export const CartProvider = ({ children }: { children: ReactNode }) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  const [cartItems, setCartItems] = useState&lt;Service[]&gt;([]);</span>
+<span class="cstat-no" title="statement not covered" >  const [cartItems, setCartItems] = useState&lt;Service[]&gt;(() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    const localData = localStorage.getItem("cartItems");</span>
+<span class="cstat-no" title="statement not covered" >    return localData ? JSON.parse(localData) : [];</span>
+<span class="cstat-no" title="statement not covered" >  });</span>
 <span class="cstat-no" title="statement not covered" >  const [isDuplicateItem, setDuplicateItem] = useState(false);</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >  const addToCart = (item: Service) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    const itemExists = cartItems.some((cartItem) =&gt; cartItem._id === item._id);</span>
-<span class="cstat-no" title="statement not covered" >    if (itemExists) {</span>
-<span class="cstat-no" title="statement not covered" >      setDuplicateItem(true);</span>
-<span class="cstat-no" title="statement not covered" >    } else {</span>
-<span class="cstat-no" title="statement not covered" >      // Item doesn't exist, add it to the cart</span>
-<span class="cstat-no" title="statement not covered" >      setCartItems((prevItems) =&gt; [...prevItems, item]);</span>
-<span class="cstat-no" title="statement not covered" >      if (isDuplicateItem) setDuplicateItem(false);</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >    setCartItems((prevItems) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      const itemExists = prevItems.some(</span>
+<span class="cstat-no" title="statement not covered" >        (cartItem) =&gt; cartItem._id === item._id</span>
+<span class="cstat-no" title="statement not covered" >      );</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >      if (itemExists) {</span>
+<span class="cstat-no" title="statement not covered" >        setDuplicateItem(true);</span>
+<span class="cstat-no" title="statement not covered" >        return prevItems;</span>
+<span class="cstat-no" title="statement not covered" >      } else {</span>
+<span class="cstat-no" title="statement not covered" >        setDuplicateItem(false);</span>
+<span class="cstat-no" title="statement not covered" >        const updatedCartItems = [...prevItems, item];</span>
+<span class="cstat-no" title="statement not covered" >        localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));</span>
+<span class="cstat-no" title="statement not covered" >        return updatedCartItems;</span>
+<span class="cstat-no" title="statement not covered" >      }</span>
+<span class="cstat-no" title="statement not covered" >    });</span>
 <span class="cstat-no" title="statement not covered" >  };</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >  const removeFromCart = (id: string) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    setCartItems((prevItems) =&gt; prevItems.filter((item) =&gt; item._id !== id));</span>
+<span class="cstat-no" title="statement not covered" >    setCartItems((prevItems) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      const updatedCartItems = prevItems.filter((item) =&gt; item._id !== id);</span>
+<span class="cstat-no" title="statement not covered" >      localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));</span>
+<span class="cstat-no" title="statement not covered" >      return updatedCartItems;</span>
+<span class="cstat-no" title="statement not covered" >    });</span>
 <span class="cstat-no" title="statement not covered" >  };</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >  const clearCart = () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    localStorage.removeItem("cartItems");</span>
 <span class="cstat-no" title="statement not covered" >    setCartItems([]);</span>
 <span class="cstat-no" title="statement not covered" >  };</span>
 <span class="cstat-no" title="statement not covered" ></span>
@@ -265,7 +310,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-04-18T12:24:15.968Z
+                at 2024-05-24T08:41:18.803Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

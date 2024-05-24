@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for frontend/src/components/CustomerServiceInsuranceCard.tsx</title>
+    <title>Code coverage report for frontend/src/components/CreateButton.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">frontend/src/components</a> CustomerServiceInsuranceCard.tsx</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">frontend/src/components</a> CreateButton.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/30</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/30</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
@@ -84,16 +84,7 @@
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L22'></a><a href='#L22'>22</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -114,45 +105,27 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import React from "react";</span></span></span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import { FiPlusSquare } from "react-icons/fi";</span></span></span>
+<span class="cstat-no" title="statement not covered" >import { useNavigate } from "react-router-dom";</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >interface CardProps {</span>
-<span class="cstat-no" title="statement not covered" >  name: string;</span>
-<span class="cstat-no" title="statement not covered" >  serviceId?: string;</span>
-<span class="cstat-no" title="statement not covered" >  deleteServiceButton?: (serviceId: string) =&gt; void;</span>
-<span class="cstat-no" title="statement not covered" >}</span>
+<span class="cstat-no" title="statement not covered" >const CreateButton = () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  const navigate = useNavigate();</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >const CustomerServiceInsuranceCard: React.FC&lt;CardProps&gt; = ({</span>
-<span class="cstat-no" title="statement not covered" >  name,</span>
-<span class="cstat-no" title="statement not covered" >  serviceId,</span>
-<span class="cstat-no" title="statement not covered" >  deleteServiceButton,</span>
-<span class="cstat-no" title="statement not covered" >}) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  const goToCreateService = () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    navigate("/create-service");</span>
+<span class="cstat-no" title="statement not covered" >  };</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
 <span class="cstat-no" title="statement not covered" >    &lt;&gt;</span>
-<span class="cstat-no" title="statement not covered" >      &lt;div className="mx-auto my-4 bg-userColor shadow-sm rounded-lg w-[500px] h-[50px] font-bold flex items-center"&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;div className="flex justify-between mx-4 w-full text-lg"&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;div&gt;{name}&lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >          {deleteServiceButton &amp;&amp; serviceId &amp;&amp; (</span>
-<span class="cstat-no" title="statement not covered" >            &lt;button onClick={() =&gt; deleteServiceButton(serviceId)}&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;img src="/trash-bin 1.png" className="w-8" alt="Delete" /&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;/button&gt;</span>
-<span class="cstat-no" title="statement not covered" >          )}</span>
-<span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;div className="absolute top-6 right-44 flex items-center justify-center"&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;button type="button" onClick={goToCreateService} className="relative"&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;FiPlusSquare className="text-3xl text-green-500" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/button&gt;</span>
 <span class="cstat-no" title="statement not covered" >      &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >    &lt;/&gt;</span>
 <span class="cstat-no" title="statement not covered" >  );</span>
 <span class="cstat-no" title="statement not covered" >};</span>
 <span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >export default CustomerServiceInsuranceCard;</span>
+<span class="cstat-no" title="statement not covered" >export default CreateButton;</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
