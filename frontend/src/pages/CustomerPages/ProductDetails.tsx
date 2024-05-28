@@ -68,8 +68,8 @@ const ProductDetails = () => {
       <Cart />
       {showPopup && (
         <Popup
-          title="Notice"
-          message="This item is already in your cart"
+          title="Obs!"
+          message="Du har allerede tilføjet dette produkt"
           showButton={false}
           behavior={closePopup}
         />
