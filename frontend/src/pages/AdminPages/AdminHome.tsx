@@ -6,6 +6,7 @@ import Spinner from "../../components/Spinner";
 import useUserState from "../../hooks/userUseState";
 import CreateButton from "../../components/CreateButton";
 import { useNavigate } from "react-router-dom";
+import Button from "../../components/Button";
 
 interface User {
   _id: string;
@@ -52,7 +53,14 @@ const AdminHome = () => {
             Velkommen til din Admin side, {userState?.name}
           </span>
         </div>
-        <button onClick={handleClick}>Test</button>
+
+        <div className="p-8 flex items-start justify-end absolute top-[-10px] right-36">
+          <Button
+            text="Order log"
+            className="text-black border-tertiary hover:bg-[#e6ecf0] focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+            onClick={handleClick}
+          />
+        </div>
         <CreateButton />
 
         <form

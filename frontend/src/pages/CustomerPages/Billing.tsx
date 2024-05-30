@@ -179,7 +179,6 @@ const Billing: React.FC = () => {
               placeholder="Tilføj kommentar"
               value={userDetails.additionalInfo}
               onChange={handleChange}
-              required
             />
           </div>
         </div>
