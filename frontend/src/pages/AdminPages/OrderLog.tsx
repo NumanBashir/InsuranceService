@@ -3,9 +3,11 @@ import axios from "axios";
 
 interface Order {
   _id: string;
+  name: string;
   email: string;
   services: string[]; // Assuming services are an array of strings
   otherInfo: string;
+  timeOfPurchase: string; // Assuming this is a string
 }
 
 const AdminOrderLog = () => {
@@ -33,10 +35,16 @@ const AdminOrderLog = () => {
           <thead className="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
               <th scope="col" className="py-3 px-6">
+                Name
+              </th>
+              <th scope="col" className="py-3 px-6">
                 Email
               </th>
               <th scope="col" className="py-3 px-6">
                 Services
+              </th>
+              <th scope="col" className="py-3 px-6">
+                Time of Purchase
               </th>
               <th scope="col" className="py-3 px-6">
                 Other Info
@@ -46,8 +54,12 @@ const AdminOrderLog = () => {
           <tbody>
             {orders.map((order) => (
               <tr key={order._id} className="bg-white border-b">
+                <td className="py-4 px-6">{order.name}</td>
                 <td className="py-4 px-6">{order.email}</td>
                 <td className="py-4 px-6">{order.services.join(", ")}</td>
+                <td className="py-4 px-6">
+                  {new Date(order.timeOfPurchase).toLocaleString()}
+                </td>
                 <td className="py-4 px-6">{order.otherInfo}</td>
               </tr>
             ))}

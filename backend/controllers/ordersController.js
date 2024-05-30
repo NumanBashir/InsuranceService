@@ -4,7 +4,7 @@ import { User } from "../models/User.js";
 const ordersController = {
   createOrder: async (req, res) => {
     try {
-      const { email, otherInfo, services } = req.body;
+      const {name, email, otherInfo, services } = req.body;
 
       // Find the user by email
       const user = await User.findOne({ email });
@@ -14,10 +14,16 @@ const ordersController = {
 
       // Create a new order with the provided services
       const newOrder = new Order({
+        name,
         email,
         otherInfo,
         services,
+        timeOfPurchase: new Date(), // Set the current date and time
       });
+  
+// Example query to check user data
+const users = await User.find({});
+console.log(users);
 
       const savedOrder = await newOrder.save();
 
@@ -44,6 +50,8 @@ const ordersController = {
         ...populatedOrder._doc,
         services: populatedOrder.services.map((service) => service.name),
       };
+
+      console.log("Final transformed order:", transformedOrder); 
 
       return res.status(201).json(transformedOrder);
     } catch (error) {
