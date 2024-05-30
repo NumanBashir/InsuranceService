@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 interface Order {
   _id: string;
   name: string;
   email: string;
-  services: string[]; // Assuming services are an array of strings
+  services: string[];
   otherInfo: string;
-  timeOfPurchase: string; // Assuming this is a string
+  timeOfPurchase: string;
 }
 
 const AdminOrderLog = () => {
@@ -27,7 +27,7 @@ const AdminOrderLog = () => {
           );
         });
 
-        setOrders(sortedOrders); // Set the sorted orders to the state
+        setOrders(sortedOrders);
       } catch (error) {
         console.error("Error fetching orders:", error);
       }
