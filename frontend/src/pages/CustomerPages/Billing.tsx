@@ -37,6 +37,7 @@ const Billing: React.FC = () => {
     event.preventDefault();
 
     const orderData = {
+      name: `${userDetails.firstName} ${userDetails.lastName}`, // Combine first and last name
       email: userDetails.email,
       otherInfo: userDetails.additionalInfo,
       services: cartItems.map((item) => item._id),
@@ -49,6 +50,8 @@ const Billing: React.FC = () => {
         orderData
       );
 
+      console.log("Response:", response.data); // Log response from the API
+
       clearCart();
 
       navigate("/confirmation", {
@@ -56,7 +59,7 @@ const Billing: React.FC = () => {
       });
       console.log("Order created:", response.data);
     } catch (error) {
-      console.error("Error creating order:", error);
+      console.error("Error creating order:", error); // Log any errors
     }
   };
 
@@ -77,6 +80,8 @@ const Billing: React.FC = () => {
         const response = await axios.get<any>(
           `http://localhost:3000/users/${userState?.userId}`
         );
+
+        console.log("User Data:", response.data); // Log user data from API
 
         // Extract user data from the response
         const userData = response.data;
@@ -107,11 +112,12 @@ const Billing: React.FC = () => {
   }, [userState?.userId]);
 
   const fields = [
-    { label: "Fornavn", name: "fname", value: userDetails.firstName },
-    { label: "Efternavn", name: "lname", value: userDetails.lastName },
+    { label: "Fornavn", name: "firstName", value: userDetails.firstName },
+    { label: "Efternavn", name: "lastName", value: userDetails.lastName },
     { label: "Email", name: "email", value: userDetails.email },
-    { label: "Telefon", name: "phone", value: userDetails.number },
+    { label: "Telefon", name: "number", value: userDetails.number },
   ];
+
   return (
     <div className="container mx-auto p-8">
       <form onSubmit={handleSubmit}>

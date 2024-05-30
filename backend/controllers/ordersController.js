@@ -4,14 +4,14 @@ import { User } from "../models/User.js";
 const ordersController = {
   createOrder: async (req, res) => {
     try {
-      const {name, email, otherInfo, services } = req.body;
-
+      const { name, email, otherInfo, services } = req.body;
+  
       // Find the user by email
       const user = await User.findOne({ email });
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
-
+  
       // Create a new order with the provided services
       const newOrder = new Order({
         name,
@@ -21,44 +21,39 @@ const ordersController = {
         timeOfPurchase: new Date(), // Set the current date and time
       });
   
-// Example query to check user data
-const users = await User.find({});
-console.log(users);
-
       const savedOrder = await newOrder.save();
-
+  
       // Add the new order to the user's orders array
       user.orders.push(savedOrder._id);
-
+  
       // Add services from the order to the user's services array if not already present
       services.forEach((serviceId) => {
         if (!user.services.includes(serviceId)) {
           user.services.push(serviceId);
         }
       });
-
+  
       await user.save();
-
+  
       // Populate the savedOrder with service names before sending the response
       const populatedOrder = await Order.findById(savedOrder._id).populate(
         "services",
         "name"
       );
-
+  
       // Prepare the order data for the response, including service names
       const transformedOrder = {
         ...populatedOrder._doc,
         services: populatedOrder.services.map((service) => service.name),
       };
-
-      console.log("Final transformed order:", transformedOrder); 
-
+  
       return res.status(201).json(transformedOrder);
     } catch (error) {
       console.error("Error creating order:", error);
       return res.status(500).json({ error: "Internal Server Error" });
     }
   },
+  
 
   getAllOrders: async (req, res) => {
     try {
