@@ -52,6 +52,7 @@ const AdminHome = () => {
             Velkommen til din Admin side, {userState?.name}
           </span>
         </div>
+        <button onClick={handleClick}>Test</button>
         <CreateButton />
 
         <form
