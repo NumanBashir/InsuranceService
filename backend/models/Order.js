@@ -16,7 +16,7 @@ const orderSchema = new mongoose.Schema({
   services: [{ type: mongoose.Schema.Types.ObjectId, ref: "Service" }],
   timeOfPurchase: {
     type: Date,
-    default: Date.now,
+    default: Date.now, 
     required: true,
   },
 });

@@ -2,7 +2,7 @@ import { Order } from "../models/Order.js";
 import { User } from "../models/User.js";
 
 const ordersController = {
-  createOrder: async (req, res) => {
+  createOrder:  async (req, res) => {
     try {
       const { name, email, otherInfo, services } = req.body;
   

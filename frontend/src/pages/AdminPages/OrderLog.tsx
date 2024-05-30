@@ -17,8 +17,17 @@ const AdminOrderLog = () => {
     const fetchOrders = async () => {
       try {
         const response = await axios.get("http://localhost:3000/orders");
-        console.log(response.data);
-        setOrders(response.data.data); // Accessing the correct path
+        const fetchedOrders = response.data.data;
+
+        // Sort orders by timeOfPurchase in descending order
+        const sortedOrders = fetchedOrders.sort((a: Order, b: Order) => {
+          return (
+            new Date(b.timeOfPurchase).getTime() -
+            new Date(a.timeOfPurchase).getTime()
+          );
+        });
+
+        setOrders(sortedOrders); // Set the sorted orders to the state
       } catch (error) {
         console.error("Error fetching orders:", error);
       }
