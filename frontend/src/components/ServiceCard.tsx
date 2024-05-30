@@ -14,7 +14,7 @@ const ServiceCard: React.FC<CardProps> = ({
   onButtonClick,
 }) => {
   return (
-    <div className="bg-white rounded-lg shadow overflow-hidden mx-auto flex flex-col">
+    <div className="bg-white rounded-lg shadow overflow-hidden mx-auto flex flex-col w-[275px]">
       <img src="leakbot.png" alt={title} className="h-56 w-full object-cover" />
       <div className="p-5 flex flex-col justify-between flex-grow">
         <div>

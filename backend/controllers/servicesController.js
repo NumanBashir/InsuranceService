@@ -10,7 +10,6 @@ const serviceController = {
         !req.body.description ||
         req.body.price === undefined ||
         req.body.price === null ||
-        !req.body.variations ||
         !req.body.eligibleInsurances
       ) {
         return res
@@ -21,7 +20,6 @@ const serviceController = {
         name: req.body.name,
         description: req.body.description,
         price: req.body.price,
-        variations: req.body.variations,
         eligibleInsurances: req.body.eligibleInsurances,
       };
       const service = await Service.create(newService);

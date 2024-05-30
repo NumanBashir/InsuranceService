@@ -38,6 +38,7 @@ const ShoppingCart = () => {
           title="Din indkøbskurv er tom"
           message="Du har ikke noget i din vogn. Tag det første skridt på en rejse fyldt
           med opdagelser!"
+          buttonText="Shop mere"
         />
       )}
       <div className="text-center my-8 mt-16">

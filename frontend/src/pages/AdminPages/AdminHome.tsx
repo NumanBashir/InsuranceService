@@ -4,6 +4,7 @@ import axios from "axios";
 import CustomerInfoCard from "../../components/CustomerInfoCard";
 import Spinner from "../../components/Spinner";
 import useUserState from "../../hooks/userUseState";
+import CreateButton from "../../components/CreateButton";
 import { useNavigate } from "react-router-dom";
 
 interface User {
@@ -51,7 +52,8 @@ const AdminHome = () => {
             Velkommen til din Admin side, {userState?.name}
           </span>
         </div>
-        <button onClick={handleClick}>Test</button>
+        <CreateButton />
+
         <form
           className="max-w-md mx-auto flex justify-center items-center relative mt-8"
           onSubmit={handleSearch}

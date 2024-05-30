@@ -2,6 +2,7 @@ interface PopupProps {
   title?: string;
   message?: string;
   showButton?: boolean;
+  buttonText?: string;
   behavior?: () => void;
 }
 
@@ -10,6 +11,7 @@ const Popup: React.FC<PopupProps> = ({
   message,
   showButton = true,
   behavior,
+  buttonText,
 }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-10 flex justify-center items-center">
@@ -17,7 +19,7 @@ const Popup: React.FC<PopupProps> = ({
         {!showButton && behavior && (
           <button
             onClick={behavior}
-            className="mt-2 mr-2 text-2xl font-semibold"
+            className="absolute top-1 right-2 text-2xl font-semibold"
             aria-label="Close"
           >
             &times;
@@ -30,7 +32,7 @@ const Popup: React.FC<PopupProps> = ({
             className="px-6 py-2 bg-tertiary text-white rounded-lg shadow hover:bg-blue-400"
             onClick={behavior}
           >
-            Shop mere
+            {buttonText}
           </button>
         )}
       </div>

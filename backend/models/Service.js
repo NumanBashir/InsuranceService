@@ -13,12 +13,6 @@ const serviceSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  variations: [
-    {
-      type: String,
-      required: false,
-    },
-  ],
   eligibleInsurances: [
     { type: mongoose.Schema.Types.ObjectId, ref: "Insurance" },
   ],

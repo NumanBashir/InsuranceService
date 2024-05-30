@@ -9,6 +9,8 @@ import AdminHome from "./pages/AdminPages/AdminHome";
 import CustomerDetails from "./pages/AdminPages/CustomerDetails";
 import Billing from "./pages/CustomerPages/Billing";
 import { CartProvider } from "./context/CartContext";
+import Orderlog from "./pages/AdminPages/OrderLog";
+import CreateService from "./pages/AdminPages/CreateService";
 import OrderLog from "./pages/AdminPages/OrderLog";
 
 const App = () => {
@@ -84,6 +86,14 @@ const App = () => {
           element={
             <Layout>
               <OrderLog />
+            </Layout>
+          }
+        />
+        <Route
+          path="/create-service"
+          element={
+            <Layout>
+              <CreateService />
             </Layout>
           }
         />
