@@ -19,7 +19,7 @@ const Popup: React.FC<PopupProps> = ({
         {!showButton && behavior && (
           <button
             onClick={behavior}
-            className="mt-2 mr-2 text-2xl font-semibold"
+            className="absolute top-1 right-2 text-2xl font-semibold"
             aria-label="Close"
           >
             &times;
