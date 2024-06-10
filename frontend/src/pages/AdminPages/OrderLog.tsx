@@ -3,7 +3,7 @@ import axios from "axios";
 
 interface Order {
   _id: string;
-  name: string;
+  userName: string;
   email: string;
   services: string[];
   otherInfo: string;
@@ -27,6 +27,7 @@ const AdminOrderLog = () => {
           );
         });
 
+        console.log("Sorted Orders:", sortedOrders); // Debug: log sorted orders
         setOrders(sortedOrders);
       } catch (error) {
         console.error("Error fetching orders:", error);
@@ -38,7 +39,9 @@ const AdminOrderLog = () => {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-      <h1 className="text-xl font-semibold text-gray-800 my-4">Order Log</h1>
+      <h1 className="text-xl font-semibold text-gray-800 my-4 text-white">
+        Order Log
+      </h1>
       <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left text-gray-500">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50">
@@ -63,7 +66,7 @@ const AdminOrderLog = () => {
           <tbody>
             {orders.map((order) => (
               <tr key={order._id} className="bg-white border-b">
-                <td className="py-4 px-6">{order.name}</td>
+                <td className="py-4 px-6">{order.userName}</td>
                 <td className="py-4 px-6">{order.email}</td>
                 <td className="py-4 px-6">{order.services.join(", ")}</td>
                 <td className="py-4 px-6">

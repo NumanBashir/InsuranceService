@@ -1,10 +1,6 @@
 import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
   email: {
     type: String,
     required: true,
@@ -16,7 +12,7 @@ const orderSchema = new mongoose.Schema({
   services: [{ type: mongoose.Schema.Types.ObjectId, ref: "Service" }],
   timeOfPurchase: {
     type: Date,
-    default: Date.now, 
+    default: Date.now,
     required: true,
   },
 });

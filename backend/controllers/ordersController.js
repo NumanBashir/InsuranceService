@@ -2,23 +2,23 @@ import { Order } from "../models/Order.js";
 import { User } from "../models/User.js";
 
 const ordersController = {
-  createOrder:  async (req, res) => {
+
+  createOrder: async (req, res) => {
     try {
-      const { name, email, otherInfo, services } = req.body;
+      const { email, otherInfo, services } = req.body;
   
-      // Find the user by email
       const user = await User.findOne({ email });
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
   
-      // Create a new order with the provided services
+      console.log('User found:', user);
+  
       const newOrder = new Order({
-        name,
         email,
         otherInfo,
         services,
-        timeOfPurchase: new Date(), // Set the current date and time
+        timeOfPurchase: new Date(),
       });
   
       const savedOrder = await newOrder.save();
@@ -41,11 +41,16 @@ const ordersController = {
         "name"
       );
   
-      // Prepare the order data for the response, including service names
+      console.log('Populated Order:', populatedOrder);
+  
+      // Prepare the order data for the response, including service names and user's name
       const transformedOrder = {
         ...populatedOrder._doc,
+        userName: user.name,
         services: populatedOrder.services.map((service) => service.name),
       };
+  
+      console.log('Transformed Order:', transformedOrder);
   
       return res.status(201).json(transformedOrder);
     } catch (error) {
@@ -53,23 +58,28 @@ const ordersController = {
       return res.status(500).json({ error: "Internal Server Error" });
     }
   },
-  
 
   getAllOrders: async (req, res) => {
     try {
+      // Fetch all orders and populate services
       const orders = await Order.find({}).populate("services", "name");
-
-      const ordersWithServiceNames = orders.map((order) => ({
-        ...order._doc,
-        services: order.services.map((service) => service.name),
+  
+      // Transform each order to include userName
+      const ordersWithUserNames = await Promise.all(orders.map(async (order) => {
+        const user = await User.findOne({ email: order.email });
+        return {
+          ...order._doc,
+          userName: user ? user.name : 'Unknown',
+          services: order.services.map((service) => service.name),
+        };
       }));
-
+  
       return res.status(200).json({
-        count: ordersWithServiceNames.length,
-        data: ordersWithServiceNames,
+        count: ordersWithUserNames.length,
+        data: ordersWithUserNames,
       });
     } catch (error) {
-      console.log(error.message);
+      console.error("Error fetching orders:", error);
       res.status(500).send({ message: error.message });
     }
   },
@@ -77,18 +87,21 @@ const ordersController = {
   getOrderById: async (req, res) => {
     try {
       const { id } = req.params;
-
+  
       const order = await Order.findById(id).populate("services", "name");
-
+  
       if (!order) {
         return res.status(404).json({ message: "Order not found" });
       }
-
+  
+      const user = await User.findOne({ email: order.email });
+  
       const transformedOrder = {
         ...order._doc,
+        userName: user ? user.name : 'Unknown',
         services: order.services.map((service) => service.name),
       };
-
+  
       return res.status(200).json(transformedOrder);
     } catch (error) {
       console.log(error.message);
